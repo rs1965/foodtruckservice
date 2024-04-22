@@ -1,2 +1,17 @@
+@import '_variables.scss';
 // all other scss file import
-@import 'reset.scss'
+@import 'reset.scss';
+@import 'spinner.scss';
+@import 'header.scss';
+@import 'searchbar.scss';
+
+
+body {
+    background-color: $bg_container_color;
+}
+
+.vertical-line {
+    border: 1px solid black;
+    margin-left:10px;
+    height: 30px;
+}
