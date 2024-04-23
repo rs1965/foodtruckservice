@@ -1,10 +1,10 @@
-package com.example.webApp;
+package com.radient.ftsapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebAppApplicationTests {
+class FTSApplicationTests {
 
 	@Test
 	void contextLoads() {
