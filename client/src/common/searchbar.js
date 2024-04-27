@@ -1,18 +1,9 @@
 import React, { useState } from 'react'
 
-function SearchBar() {
+function SearchBar(props) {
+    const { handleSearch, handleInputChange, text, placeholder } = props;
     const [searchText, setSearchText] = useState('');
 
-    // Function to handle search actions
-    const handleSearch = () => {
-        // Log the search text to the console
-        console.log(`Search text: ${searchText}`);
-    };
-
-    // Event handler for updating the search input state
-    const handleInputChange = (event) => {
-        setSearchText(event.target.value);
-    };
 
     // Event handler for detecting when the Enter key is pressed
     const handleKeyDown = (event) => {
@@ -26,9 +17,9 @@ function SearchBar() {
             <input
                 type="text"
                 className="search-input"
-                placeholder="City/State or Zipcode..."
-                value={searchText}
-                onChange={handleInputChange}
+                placeholder={placeholder}
+                value={text}
+                onChange={(event) => handleInputChange(event)}
                 onKeyDown={handleKeyDown}
             />
             {/* Search button */}

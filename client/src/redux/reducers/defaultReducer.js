@@ -1,15 +1,16 @@
-import { GET_DEFAULT_SUCCESS, GET_DEFAULT_FAIL } from '../actions/defaultAction';
+import {
+    GET_DEFAULT_SUCCESS, GET_DEFAULT_FAIL,
+    GET_LOCATION_DETAILS_SUCCESS, GET_LOCATION_DETAILS_FAIL
+} from '../actions/defaultAction';
 
 const initialObj = {
     data: [],
-    message: '',
-    isSuccess: false,
     statusCode: "",
-    isLoading: false
 }
 
 const initialState = {
-    getDefaultRes: initialObj
+    getDefaultRes: initialObj,
+    getLocationDetailsRes: initialObj
 }
 
 function defaultReducer(state = initialState, action) {
@@ -20,8 +21,6 @@ function defaultReducer(state = initialState, action) {
                 ...state,
                 getDefaultRes: {
                     data: payload.data,
-                    message: payload.message,
-                    isSuccess: payload.isSuccess,
                     statusCode: payload.statusCode
                 }
             }
@@ -30,11 +29,25 @@ function defaultReducer(state = initialState, action) {
                 ...state,
                 getDefaultRes: {
                     data: payload.data,
-                    message: payload.message,
-                    isSuccess: payload.isSuccess,
                     statusCode: payload.statusCode
                 }
             }
+        case GET_LOCATION_DETAILS_SUCCESS:
+            return {
+                ...state,
+                getLocationDetailsRes: {
+                    data: payload.data,
+                    statusCode: payload.statusCode
+                }
+            }
+        // case GET_LOCATION_DETAILS_FAIL:
+        //     return {
+        //         ...state,
+        //         getLocationDetailsRes: {
+        //             data: payload.data,
+        //             statusCode: payload.statusCode
+        //         }
+        //     }
         default:
             return state;
     }

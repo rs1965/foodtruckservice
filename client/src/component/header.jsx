@@ -40,12 +40,6 @@ function Header() {
                     <li><a href="#">About</a></li>
                 </ul>
             </div>
-
-            {/* Main Content */}
-            <div className="main-content">
-                {/* Your main content goes here */}
-                <h1>Welcome to the website!</h1>
-            </div>
         </div>
     );
 }
