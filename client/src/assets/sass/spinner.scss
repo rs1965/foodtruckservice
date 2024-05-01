@@ -1,0 +1,12 @@
+.spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+    align-items: center;
+    background-color: $bg_container_color;
+}
