@@ -1,5 +1,6 @@
 import { CompactTable } from '@table-library/react-table-library/compact';
-
+import { useTheme } from '@table-library/react-table-library/theme';
+import { getTheme } from '@table-library/react-table-library/baseline';
 const nodes = [
     {
         id: '0',
@@ -12,9 +13,9 @@ const nodes = [
 ];
 
 const COLUMNS = [
-    { label: 'Task', renderCell: (item) => item.name },
+    { label: 'Facility Type', renderCell: (item) => item.name },
     {
-        label: 'Deadline',
+        label: 'Address',
         renderCell: (item) =>
             item.deadline.toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -22,18 +23,18 @@ const COLUMNS = [
                 day: '2-digit',
             }),
     },
-    { label: 'Type', renderCell: (item) => item.type },
+    { label: 'Schedule', renderCell: (item) => item.type },
     {
-        label: 'Complete',
+        label: 'Location Description',
         renderCell: (item) => item.isComplete.toString(),
     },
-    { label: 'Tasks', renderCell: (item) => item.nodes },
+    { label: 'Food Items', renderCell: (item) => item.nodes },
 ];
 
 const TableCustom = () => {
     const data = { nodes };
-
-    return <CompactTable columns={COLUMNS} data={data} />;
+    const theme = useTheme(getTheme());
+    return <CompactTable columns={COLUMNS} data={data} theme={theme} />;
 };
 
-export default  TableCustom;
+export default TableCustom;
