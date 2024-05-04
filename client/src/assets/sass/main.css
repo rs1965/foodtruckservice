@@ -212,6 +212,11 @@ table {
   padding: 20px;
 }
 
+.tablecustom {
+  margin-left: 100px;
+  padding: 20px;
+}
+
 .selected-sidebar-option {
   background-color: #c8dfdf;
 }

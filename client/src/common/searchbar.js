@@ -12,26 +12,30 @@ function SearchBar(props) {
         }
     };
     return (
-        <div className="search-container">
-            {/* Search input field */}
-            <input
-                type="text"
-                className="search-input"
-                placeholder={placeholder}
-                value={text}
-                onChange={(event) => handleInputChange(event)}
-                onKeyDown={handleKeyDown}
-            />
-            {/* Search button */}
-            <button
-                className="search-button"
-                onClick={handleSearch}
-            >
-                <span className="material-symbols-outlined">
-                    location_searching
-                </span>
-            </button>
-        </div>
+        <>
+            <div className="search-container">
+                {/* Search input field */}
+                <input
+                    type="text"
+                    className="search-input"
+                    placeholder={placeholder}
+                    value={text}
+                    onChange={(event) => handleInputChange(event)}
+                    onKeyDown={handleKeyDown}
+                />
+                {/* Search button */}
+                <button
+                    className="search-button"
+                    onClick={handleSearch}
+                >
+                    <span className="material-symbols-outlined">
+                        location_searching
+                    </span>
+                </button>
+            </div>
+            {
+                <p>Hii</p>
+            }</>
     )
 }
 
