@@ -36,9 +36,9 @@
 /* Sidebar styles */
 .sidebar {
     width: max-content;
-    height: 100vh;
+    height: 100%;
     background-color: #f4f4f4;
-    position: fixed;
+    position: absolute;
     padding: 20px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .11);
 }

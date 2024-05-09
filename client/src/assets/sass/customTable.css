@@ -1,0 +1,24 @@
+/* Table with borders */
+.table-bordered {
+  border: 1px solid #ddd;
+  /* Add a border around the table */
+}
+
+/* Add borders to table cells */
+.table-bordered .table {
+  border-collapse: collapse;
+  /* Ensure borders are not separated */
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #ddd;
+  /* Add borders to table cells */
+  padding: 8px;
+  /* Add padding to cells */
+}
+
+.table-bordered th {
+  background-color: #f2f2f2;
+  /* Optional: add background color to headers */
+}/*# sourceMappingURL=customTable.css.map */

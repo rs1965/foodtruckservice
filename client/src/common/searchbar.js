@@ -33,9 +33,7 @@ function SearchBar(props) {
                     </span>
                 </button>
             </div>
-            {
-                <p>Hii</p>
-            }</>
+        </>
     )
 }
 

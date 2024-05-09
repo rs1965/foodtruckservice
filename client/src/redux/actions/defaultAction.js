@@ -17,8 +17,7 @@ export const getDefault = () => async (dispatch) => {
 
 export const getLocationDetails = () => async (dispatch) => {
 
-    await CommonServices.getApi('https://data.sfgov.org/resource/rqzj-sfat.json').then(function (res) {
-        console.log(res, "res")
+    await CommonServices.getApi('http://localhost:8080/getAllLocationDetails').then(function (res) {
         dispatch({ type: GET_LOCATION_DETAILS_SUCCESS, payload: res });
     }).catch(err => {
         console.log(err, "err")
