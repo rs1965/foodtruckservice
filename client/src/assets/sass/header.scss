@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
-    // height: 8vh;
+    position: sticky;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .11);
 }
 
@@ -37,6 +37,7 @@
 .sidebar {
     width: max-content;
     height: 100%;
+    flex-basis: auto;
     background-color: #f4f4f4;
     position: absolute;
     padding: 20px;
@@ -64,12 +65,12 @@
 }
 
 .main-content {
-    margin-left: 200px;
-    padding: 20px;
+    margin-left: 90px;
+    // padding: 20px;
 }
 
 .tablecustom {
-    margin-left: 100px;
+    margin-left: 72px;
     padding: 20px;
 }
 

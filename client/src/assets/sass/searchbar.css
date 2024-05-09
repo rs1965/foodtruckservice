@@ -1,7 +1,8 @@
 .search-container {
   display: flex;
+  position: sticky;
   width: 300px;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 .search-input {
@@ -19,6 +20,4 @@
   border: none;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
-}
-
-/*# sourceMappingURL=searchbar.css.map */
+}/*# sourceMappingURL=searchbar.css.map */

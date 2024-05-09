@@ -14,11 +14,28 @@
 .table-bordered td {
   border: 1px solid #ddd;
   /* Add borders to table cells */
-  padding: 8px;
   /* Add padding to cells */
 }
 
 .table-bordered th {
   background-color: #f2f2f2;
   /* Optional: add background color to headers */
+}
+
+/* CSS Styles for aligning pagination controls */
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  /* Aligns pagination to the right */
+}
+
+.react-bootstrap-table-pagination {
+  margin-bottom: 10px;
+}
+
+/* Ensure pagination is on the top */
+.bootstrap-table .pagination-top {
+  display: flex;
+  justify-content: flex-end;
+  /* Aligns pagination to the right */
 }/*# sourceMappingURL=customTable.css.map */
