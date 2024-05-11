@@ -6,6 +6,8 @@
   height: 100vh;
   display: flex;
   justify-content: center;
+  opacity: 0.5;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: grey;
+  z-index: 99;
 }/*# sourceMappingURL=spinner.css.map */

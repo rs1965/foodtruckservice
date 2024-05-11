@@ -1,0 +1,41 @@
+/* Table with borders */
+.table-bordered {
+  border: 1px solid #ddd;
+  /* Add a border around the table */
+}
+
+/* Add borders to table cells */
+.table-bordered .table {
+  border-collapse: collapse;
+  /* Ensure borders are not separated */
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #ddd;
+  /* Add borders to table cells */
+  /* Add padding to cells */
+}
+
+.table-bordered th {
+  background-color: #f2f2f2;
+  /* Optional: add background color to headers */
+}
+
+/* CSS Styles for aligning pagination controls */
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  /* Aligns pagination to the right */
+}
+
+.react-bootstrap-table-pagination {
+  margin-bottom: 10px;
+}
+
+/* Ensure pagination is on the top */
+.bootstrap-table .pagination-top {
+  display: flex;
+  justify-content: flex-end;
+  /* Aligns pagination to the right */
+}/*# sourceMappingURL=customTable.css.map */

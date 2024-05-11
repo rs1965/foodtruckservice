@@ -139,7 +139,8 @@ table {
   justify-content: center;
   opacity: 0.5;
   align-items: center;
-  background-color: #c8dfdf;
+  background-color: grey;
+  z-index: 99;
 }
 
 /* Navbar styles */
@@ -180,9 +181,10 @@ table {
 .sidebar {
   width: -moz-max-content;
   width: max-content;
-  height: 100vh;
+  height: 100%;
+  flex-basis: auto;
   background-color: #f4f4f4;
-  position: fixed;
+  position: absolute;
   padding: 20px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
 }
@@ -208,7 +210,11 @@ table {
 }
 
 .main-content {
-  margin-left: 200px;
+  margin-left: 90px;
+}
+
+.tablecustom {
+  margin-left: 72px;
   padding: 20px;
 }
 
@@ -218,6 +224,7 @@ table {
 
 .search-container {
   display: flex;
+  position: sticky;
   width: 300px;
   margin: 20px 0;
 }
