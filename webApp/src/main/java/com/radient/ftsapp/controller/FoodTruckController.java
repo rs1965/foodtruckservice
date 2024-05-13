@@ -1,4 +1,5 @@
 package com.radient.ftsapp.controller;
+import ch.qos.logback.core.model.Model;
 import com.radient.ftsapp.model.FoodTruck;
 import com.radient.ftsapp.service.FoodTruckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,18 @@ public class FoodTruckController {
     @Autowired
     public FoodTruckController(FoodTruckService foodTruckService) {
         this.foodTruckService = foodTruckService;
+    }
+
+    @GetMapping("/foodtrucks")
+    public String fetchFacilities(Model model) {
+        // Fetch food truck data using fetchFoodTrucks() method
+        List<FoodTruck> foodTrucks = foodTruckService.fetchFoodTrucks();
+
+        // Add food trucks to the model
+        model.addText("foodTrucks");
+
+        // Return the name of the HTML template to render
+        return "foodtrucks";
     }
 
     // Define the endpoint method for "/"
@@ -60,7 +73,7 @@ public class FoodTruckController {
         // Return the nearest food truck as a JSON response
         return nearestFoodTruck;
     }
-    
+
         // Radius of the Earth in miles
         private final double EARTH_RADIUS_MILES = 3958.8;
 
