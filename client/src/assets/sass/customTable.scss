@@ -18,8 +18,15 @@
     /* Add padding to cells */
 }
 
+.table-bordered td {
+    z-index: 0 !important;
+}
+
 .table-bordered th {
     background-color: #f2f2f2;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1;
     /* Optional: add background color to headers */
 }
 

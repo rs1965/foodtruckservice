@@ -31,6 +31,8 @@ function Home() {
         if (getLocationDetailsRes?.statusCode === 200 && getLocationDetailsRes?.data !== null) {
             setShowLoader(false);
             setTableData(getLocationDetailsRes?.data)
+        } else if (getLocationDetailsRes?.statusCode !== 200) {
+            setShowLoader(false);
         }
     }, [getLocationDetailsRes])
     const handleChange = (event) => {
@@ -91,7 +93,8 @@ function Home() {
             </div>
             <div className='tablecustom'>
                 {/* <TableCustom columns={columns} nodes={tableData} /> */}
-                <CustomTable columns={columns} tableData={tableData} styleTable={"table-bordered"} />
+                <CustomTable columns={columns} tableData={tableData} styleTable={"table-bordered"}
+                    tableHeight="400px" />
             </div>
         </>
     )
