@@ -68,6 +68,11 @@ function Home() {
                 textOverflow: 'ellipsis', // Use ellipsis for overflow text
 
             },
+            formatter: (cell, row) => (
+                <a href={`${cell}`} target="_blank" rel="noopener noreferrer">
+                    {cell}
+                </a>
+            )
         },
         {
             dataField: "locationdescription",
