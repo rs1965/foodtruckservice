@@ -28,8 +28,8 @@ function defaultReducer(state = initialState, action) {
             return {
                 ...state,
                 getLocationDetailsRes: {
-                    data: payload.data,
-                    statusCode: payload.status
+                    data: payload?.data,
+                    statusCode: payload?.status
                 }
             }
         default:

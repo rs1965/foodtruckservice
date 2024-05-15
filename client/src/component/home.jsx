@@ -31,6 +31,8 @@ function Home() {
         if (getLocationDetailsRes?.statusCode === 200 && getLocationDetailsRes?.data !== null) {
             setShowLoader(false);
             setTableData(getLocationDetailsRes?.data)
+        } else if (getLocationDetailsRes?.statusCode !== 200) {
+            setShowLoader(false);
         }
     }, [getLocationDetailsRes])
     const handleChange = (event) => {
@@ -42,6 +44,12 @@ function Home() {
     }
 
     const columns = [
+        {
+            dataField: "applicant",
+            text: "Applicant",
+            // filter: textFilter(),
+            // sort: true,
+        },
         {
             dataField: "facilitytype",
             text: "Facility Type",
@@ -66,6 +74,11 @@ function Home() {
                 textOverflow: 'ellipsis', // Use ellipsis for overflow text
 
             },
+            formatter: (cell, row) => (
+                <a href={`${cell}`} target="_blank" rel="noopener noreferrer">
+                    {cell}
+                </a>
+            )
         },
         {
             dataField: "locationdescription",
@@ -87,11 +100,14 @@ function Home() {
             <div className="main-content">
                 <SearchBar handleSearch={getLocationByText}
                     handleInputChange={handleChange} text={text}
-                    placeholder={'City,State or Zipcode'} />
+                    placeholder={'City,State or Zipcode'}
+                    errorMsg={!text.includes(',') ? 'error' : ''}
+                />
             </div>
             <div className='tablecustom'>
                 {/* <TableCustom columns={columns} nodes={tableData} /> */}
-                <CustomTable columns={columns} tableData={tableData} styleTable={"table-bordered"} />
+                <CustomTable columns={columns} tableData={tableData} styleTable={"table-bordered"}
+                    tableHeight="400px" />
             </div>
         </>
     )

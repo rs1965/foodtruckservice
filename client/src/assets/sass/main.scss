@@ -4,7 +4,7 @@
 @import 'spinner.scss';
 @import 'header.scss';
 @import 'searchbar.scss';
-
+@import 'customTable.scss';
 
 body {
     background-color: $bg_container_color;
@@ -14,4 +14,9 @@ body {
     border: 1px solid black;
     margin-left: 10px;
     height: 30px;
+}
+
+.text-error-display {
+    color: red;
+    font-size: medium;
 }
