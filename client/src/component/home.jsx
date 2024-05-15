@@ -45,6 +45,12 @@ function Home() {
 
     const columns = [
         {
+            dataField: "applicant",
+            text: "Applicant",
+            // filter: textFilter(),
+            // sort: true,
+        },
+        {
             dataField: "facilitytype",
             text: "Facility Type",
             // filter: textFilter(),
@@ -68,6 +74,11 @@ function Home() {
                 textOverflow: 'ellipsis', // Use ellipsis for overflow text
 
             },
+            formatter: (cell, row) => (
+                <a href={`${cell}`} target="_blank" rel="noopener noreferrer">
+                    {cell}
+                </a>
+            )
         },
         {
             dataField: "locationdescription",
@@ -89,7 +100,9 @@ function Home() {
             <div className="main-content">
                 <SearchBar handleSearch={getLocationByText}
                     handleInputChange={handleChange} text={text}
-                    placeholder={'City,State or Zipcode'} />
+                    placeholder={'City,State or Zipcode'}
+                    errorMsg={!text.includes(',') ? 'error' : ''}
+                />
             </div>
             <div className='tablecustom'>
                 {/* <TableCustom columns={columns} nodes={tableData} /> */}

@@ -13,7 +13,6 @@ const CustomTable = (props) => {
     const paginationOptions = {
         sizePerPage: 3, // Display 3 records per page
         sizePerPageList: [3, 10, 25, 50], // List of available page sizes
-        paginationPosition: "top", // Position pagination controls at the top
     };
 
     // Return the Bootstrap table with pagination and filtering
