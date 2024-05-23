@@ -7,7 +7,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 const CustomTable = (props) => {
-    const { columns, tableData, styleTable, tableHeight, bodyClasses, headerClasses } = props;
+    const { columns, tableData, styleTable, tableHeight, bodyClasses, headerClasses,handleRowClick } = props;
 
     // Define pagination options
     const paginationOptions = {
@@ -29,6 +29,7 @@ const CustomTable = (props) => {
                 bootstrap4
                 className={styleTable}
                 noDataIndication="No data available"
+                rowEvents={{ onClick: (e, row) => handleRowClick(row) }}
             />
         </div>
     );

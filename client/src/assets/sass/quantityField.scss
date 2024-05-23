@@ -1,0 +1,33 @@
+.quantity-field {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-field-btn {
+    border-radius: 40%;
+    margin: 5%;
+}
+
+.offcanvas-bgc {
+    background-color: $bg_container_color;
+}
+
+.card-border {
+    margin: 0 0 5% 0;
+    border: 1px solid black;
+}
+
+.offcanvas-footer {
+    // background-color: #f8f9fa;
+    text-align: right;
+}
+
+.price-details {
+    border-top: 2px solid black;
+    // margin: 5% 0 5% 0;
+}
+
+.price-details-label {
+    // border-top: 2px solid black;
+    margin: 5% 0 5% 0;
+}
