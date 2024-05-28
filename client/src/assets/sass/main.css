@@ -227,7 +227,7 @@ table {
   display: flex;
   position: sticky;
   width: 300px;
-  margin: 20px 0;
+  margin-top: 20px;
 }
 
 .search-input {
@@ -245,7 +245,6 @@ table {
   border: none;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
-  height: 41px;
 }
 
 /* Table with borders */
@@ -295,6 +294,23 @@ table {
   display: flex;
   justify-content: flex-end;
   /* Aligns pagination to the right */
+}
+
+.quantity-field {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-field button {
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+}
+
+.quantity-field input {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
 }
 
 body {

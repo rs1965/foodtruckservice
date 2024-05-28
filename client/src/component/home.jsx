@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getLocationDetails } from '../redux/actions/defaultAction';
 import SpinnerComponent from '../common/spinner';
 import CustomTable from '../common/customTable';
+import CanvasView from '../common/canvas';
 function Home() {
     const [location, setLocation] = useState([])
     const [text, setText] = useState('');
     const dispatch = useDispatch();
     const [showLoader, setShowLoader] = useState(false);
     const [tableData, setTableData] = useState([]);
-
+    const [recdSelected, setRecdSelected] = useState([]);
+    const [showOffcanvas, setShowOffcanvas] = useState(false);
     const locationState = useSelector((state) => state.defaultReducer);
     const { getLocationDetailsRes } = locationState
     useEffect(() => {
@@ -35,8 +37,20 @@ function Home() {
             setShowLoader(false);
         }
     }, [getLocationDetailsRes])
+    function replaceRepeatingCommas(text) {
+        const inputString = text;
+        const firstCommaIndex = inputString.indexOf(",");
+        const outputString = inputString.slice(0, firstCommaIndex + 1) + inputString.slice(firstCommaIndex + 1).replaceAll(",", "");
+        return outputString
+    }
+
     const handleChange = (event) => {
-        setText(event.target.value)
+        // Get the input value
+        const value = event.target.value;
+        // Replace repeating commas
+        const cleanedValue = replaceRepeatingCommas(value);
+        // Update the state with the cleaned value
+        setText(cleanedValue);
     }
     const getLocationByText = () => {
         dispatch(getLocationDetails())
@@ -94,6 +108,14 @@ function Home() {
         },
         // Add more columns as needed
     ];
+    const handleRowClick = (row) => {
+        setRecdSelected(row)
+        { row && setShowOffcanvas(true) }
+    }
+    const handleCloseOffcanvas = () => {
+        setRecdSelected([])
+        setShowOffcanvas(false)
+    }
     return (
         <>
             {showLoader && <SpinnerComponent />}
@@ -101,13 +123,22 @@ function Home() {
                 <SearchBar handleSearch={getLocationByText}
                     handleInputChange={handleChange} text={text}
                     placeholder={'City,State or Zipcode'}
-                    errorMsg={!text.includes(',') ? 'error' : ''}
+                    errorMsg={(text && !text.includes(',')) ||
+                        (text && text.split(',')[0].trim() === '' && text.split(',')[1].trim() === '') ? 'Please Enter City,State or Zipcode' :
+                        (text && text.split(',')[0].trim() === '') ? 'Please Enter City' :
+                            (text && text.split(',')[1].trim() === '') ? 'Please Enter State or Zipcode' : ''}
                 />
             </div>
             <div className='tablecustom'>
                 {/* <TableCustom columns={columns} nodes={tableData} /> */}
                 <CustomTable columns={columns} tableData={tableData} styleTable={"table-bordered"}
-                    tableHeight="400px" />
+                    tableHeight="400px" handleRowClick={handleRowClick} />
+                {recdSelected &&
+                    <>
+                        <CanvasView view={showOffcanvas} data={recdSelected}
+                            handleCloseOffcanvas={handleCloseOffcanvas} />
+                    </>
+                }
             </div>
         </>
     )

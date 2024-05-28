@@ -1,0 +1,9 @@
+.quantity-field {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-field-btn {
+  border-radius: 40%;
+  margin: 5%;
+}/*# sourceMappingURL=quantityField.css.map */
