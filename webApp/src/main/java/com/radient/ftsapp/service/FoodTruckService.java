@@ -1,60 +1,95 @@
 package com.radient.ftsapp.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radient.ftsapp.model.FoodTruck;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 @Service
 public class FoodTruckService {
+
+    private static final Logger logger = LoggerFactory.getLogger(FoodTruckService.class);
     private static final String SF_API_URL = "https://data.sfgov.org/resource/rqzj-sfat.json";
     private static final String NY_API_URL = "https://data.cityofnewyork.us/resource/9w7m-hzhe.json";
+    private static final String SF_CACHE_FILE_PATH = "sft.data.json";
+    private static final String NY_CACHE_FILE_PATH = "ny.data.json";
 
     private final RestTemplate restTemplate;
+    private final List<FoodTruck> sfCachedResponse;
+    private final List<FoodTruck> nyCachedResponse;
+    private final ObjectMapper objectMapper;
 
-    public FoodTruckService(RestTemplate restTemplate) {
+    @Autowired
+    public FoodTruckService(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
+        this.sfCachedResponse = new CopyOnWriteArrayList<>(); // Thread-safe list
+        this.nyCachedResponse = new CopyOnWriteArrayList<>(); // Thread-safe list
+        this.objectMapper = objectMapper;
+        loadCacheFromFile(SF_CACHE_FILE_PATH, sfCachedResponse); // Load cached data from file on startup
+        loadCacheFromFile(NY_CACHE_FILE_PATH, nyCachedResponse); // Load cached data from file on startup
     }
 
-    public List<FoodTruck> fetchAllFoodTrucks() {
-        List<FoodTruck> sfFoodTrucks = fetchFoodTrucksFromAPI(SF_API_URL);
-        List<FoodTruck> nyFoodTrucks = fetchFoodTrucksFromAPI(NY_API_URL);
-
-        sfFoodTrucks.addAll(nyFoodTrucks);
-        return sfFoodTrucks;
+    public List<FoodTruck> fetchSFFoodTrucks(boolean status) {
+        return fetchData(SF_API_URL, sfCachedResponse,status);
     }
 
-    public FoodTruck findNearestFoodTruck(double latitude, double longitude) {
-        List<FoodTruck> foodTrucks = fetchAllFoodTrucks();
-        return foodTrucks.stream()
-                .min(Comparator.comparingDouble(ft -> calculateDistance(latitude, longitude, ft.getLatitude(), ft.getLongitude())))
-                .orElse(null);
+    public List<FoodTruck> fetchNYFoodTrucks(boolean status) {
+        return fetchData(NY_API_URL, nyCachedResponse,status);
     }
 
-    private List<FoodTruck> fetchFoodTrucksFromAPI(String apiUrl) {
-        FoodTruck[] foodTrucks = restTemplate.getForObject(apiUrl, FoodTruck[].class);
-        assert foodTrucks != null;
-        return Arrays.stream(foodTrucks)
-                .filter(foodTruck -> !"expired".equalsIgnoreCase(foodTruck.getStatus()))
-                .collect(Collectors.toList());
+    private List<FoodTruck> fetchData(String apiUrl, List<FoodTruck> cache, boolean status) {
+        try {
+            FoodTruck[] foodTrucks = restTemplate.getForObject(apiUrl, FoodTruck[].class);
+            if (foodTrucks != null) {
+                cache.clear();
+                cache.addAll(Arrays.asList(foodTrucks));
+                return filterActiveFoodTrucks(foodTrucks,status);
+            } else {
+                // Handle the case where the API response is null
+                return filterActiveFoodTrucks(cache.toArray(new FoodTruck[0]),status); // Return the filtered cached data
+            }
+        } catch (HttpClientErrorException | ResourceAccessException e) {
+            logger.error("Error fetching data from API {}: {}", apiUrl, e.getMessage(), e);
+            return filterActiveFoodTrucks(cache.toArray(new FoodTruck[0]),status); // Return the filtered cached data in case of an error
+        }
     }
 
-    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        double lat1Rad = Math.toRadians(lat1);
-        double lon1Rad = Math.toRadians(lon1);
-        double lat2Rad = Math.toRadians(lat2);
-        double lon2Rad = Math.toRadians(lon2);
-        double latDiff = lat2Rad - lat1Rad;
-        double lonDiff = lon2Rad - lon1Rad;
-        double a = Math.sin(latDiff / 2) * Math.sin(latDiff / 2)
-                + Math.cos(lat1Rad) * Math.cos(lat2Rad)
-                * Math.sin(lonDiff / 2) * Math.sin(lonDiff / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double EARTH_RADIUS_MILES = 3958.8;
-        return EARTH_RADIUS_MILES * c;
+    private List<FoodTruck> filterActiveFoodTrucks(FoodTruck[] foodTrucks,boolean status) {
+        if(!status){
+            return Arrays.stream(foodTrucks)
+                    .filter(foodTruck -> !"expired".equalsIgnoreCase(foodTruck.getStatus()))
+                    .collect(Collectors.toList());
+        } else{
+            return Arrays.stream(foodTrucks)
+                    .collect(Collectors.toList());
+        }
+
+    }
+
+    private void loadCacheFromFile(String filePath, List<FoodTruck> cache) {
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                List<FoodTruck> foodTrucks = objectMapper.readValue(file, new TypeReference<>() {});
+                cache.clear();
+                cache.addAll(foodTrucks);
+                logger.info("Loaded cached data from file: {}", filePath);
+            }
+        } catch (IOException e) {
+            logger.error("Error loading cached data from file {}: {}", filePath, e.getMessage(), e);
+        }
     }
 }
