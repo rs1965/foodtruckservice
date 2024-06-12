@@ -17,7 +17,7 @@ export const getDefault = () => async (dispatch) => {
 
 export const getLocationDetails = () => async (dispatch) => {
 
-    await CommonServices.getApi('http://localhost:8080/getAllLocationDetails').then(function (res) {
+    await CommonServices.getApi('http://localhost:8080/getAllLocationDetails?status=false').then(function (res) {
         dispatch({ type: GET_LOCATION_DETAILS_SUCCESS, payload: res });
     }).catch(err => {
         dispatch({ type: GET_LOCATION_DETAILS_FAIL, payload: err.response });
