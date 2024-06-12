@@ -1,15 +1,14 @@
 package com.radient.ftsapp.model;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 public class FoodTruck {
 
-    // Getters and setters for Facility class fields
+    // Fields for San Francisco dataset
     @JsonProperty("objectid")
     private String objectId;
 
@@ -55,18 +54,6 @@ public class FoodTruck {
     @JsonProperty("longitude")
     private double longitude;
 
-    @JsonProperty("schedule")
-    private String schedule;
-
-    @JsonProperty("received")
-    private String received;
-
-    @JsonProperty("priorpermit")
-    private String priorPermit;
-
-    @JsonProperty("expirationdate")
-    private String expirationDate;
-
     @JsonProperty("location")
     private Location location;
 
@@ -85,11 +72,77 @@ public class FoodTruck {
     @JsonProperty(":@computed_region_fyvs_ahh9")
     private String computedRegionFyvsAhh9;
 
+    // Fields for New York dataset
+    @JsonProperty("camis")
+    private String camis;
+
+    @JsonProperty("dba")
+    private String dba;
+
+    @JsonProperty("boro")
+    private String boro;
+
+    @JsonProperty("building")
+    private String building;
+
+    @JsonProperty("street")
+    private String street;
+
+    @JsonProperty("zipcode")
+    private String zipcode;
+
+    @JsonProperty("phone")
+    private String phone;
+
+    @JsonProperty("cuisine_description")
+    private String cuisineDescription;
+
+    @JsonProperty("inspection_date")
+    private String inspectionDate;
+
+    @JsonProperty("action")
+    private String action;
+
+    @JsonProperty("violation_code")
+    private String violationCode;
+
+    @JsonProperty("violation_description")
+    private String violationDescription;
+
+    @JsonProperty("critical_flag")
+    private String criticalFlag;
+
+    @JsonProperty("score")
+    private String score;
+
+    @JsonProperty("record_date")
+    private String recordDate;
+
+    @JsonProperty("inspection_type")
+    private String inspectionType;
+
+    @JsonProperty("community_board")
+    private String communityBoard;
+
+    @JsonProperty("council_district")
+    private String councilDistrict;
+
+    @JsonProperty("census_tract")
+    private String censusTract;
+
+    @JsonProperty("bin")
+    private String bin;
+
+    @JsonProperty("bbl")
+    private String bbl;
+
+    @JsonProperty("nta")
+    private String nta;
+
     // Nested Location class for the location field
-    @Setter
     @Getter
+    @Setter
     public static class Location {
-        // Getters and setters for Location class
         @JsonProperty("latitude")
         private double latitude;
 
@@ -98,7 +151,5 @@ public class FoodTruck {
 
         @JsonProperty("human_address")
         private String humanAddress;
-
     }
-
 }
