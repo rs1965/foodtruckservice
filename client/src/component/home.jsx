@@ -49,8 +49,14 @@ function Home() {
         const value = event.target.value;
         // Replace repeating commas
         const cleanedValue = replaceRepeatingCommas(value);
-        // Update the state with the cleaned value
-        setText(cleanedValue);
+        let firstChar = cleanedValue.charAt(0);
+        let removeNum;
+        if (!isNaN(firstChar) && firstChar >= '0' && firstChar <= '9') {
+            setText(cleanedValue.replace(/[^0-9]/g, ''))
+        } else {
+            // Update the state with the cleaned value
+            setText(cleanedValue);
+        }
     }
     const getLocationByText = () => {
         dispatch(getLocationDetails())
@@ -123,10 +129,10 @@ function Home() {
                 <SearchBar handleSearch={getLocationByText}
                     handleInputChange={handleChange} text={text}
                     placeholder={'City,State or Zipcode'}
-                    errorMsg={(text && !text.includes(',')) ||
-                        (text && text.split(',')[0].trim() === '' && text.split(',')[1].trim() === '') ? 'Please Enter City,State or Zipcode' :
-                        (text && text.split(',')[0].trim() === '') ? 'Please Enter City' :
-                            (text && text.split(',')[1].trim() === '') ? 'Please Enter State or Zipcode' : ''}
+                    errorMsg={text && !isNaN(text.charAt(0)) ? '' :
+                        (text && !text?.includes(',')) ? 'Please Enter City,State or Zipcode' :
+                            (text && text?.split(',')[0]?.trim() === '') ? 'Please Enter City' :
+                                (text && text?.split(',')[1]?.trim() === '') ? 'Please Enter State' : ''}
                 />
             </div>
             <div className='tablecustom'>
