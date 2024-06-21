@@ -1,15 +1,11 @@
 package com.radient.ftsapp;
 
-import com.radient.ftsapp.model.FoodTruck;
-import com.radient.ftsapp.service.FacilitiesService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import jakarta.annotation.PostConstruct;
-import java.util.List;
-
+@SpringBootApplication(scanBasePackages = {"com.radient.ftsapp.repository", "com.radient.ftsapp.service"})
 @Configuration
 public class AppConfig {
 

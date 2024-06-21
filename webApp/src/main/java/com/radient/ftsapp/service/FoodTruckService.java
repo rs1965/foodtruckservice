@@ -19,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 @Service
-public class FoodTruckService {
+public class FoodTruckService{
 
     private static final Logger logger = LoggerFactory.getLogger(FoodTruckService.class);
     private static final String SF_API_URL = "https://data.sfgov.org/resource/rqzj-sfat.json";
@@ -67,7 +67,7 @@ public class FoodTruckService {
         }
     }
 
-    private List<FoodTruck> filterActiveFoodTrucks(FoodTruck[] foodTrucks,boolean status) {
+    public List<FoodTruck> filterActiveFoodTrucks(FoodTruck[] foodTrucks,boolean status) {
         if(!status){
             return Arrays.stream(foodTrucks)
                     .filter(foodTruck -> !"expired".equalsIgnoreCase(foodTruck.getStatus()))
@@ -79,7 +79,7 @@ public class FoodTruckService {
 
     }
 
-    private void loadCacheFromFile(String filePath, List<FoodTruck> cache) {
+    public void loadCacheFromFile(String filePath, List<FoodTruck> cache) {
         try {
             File file = new File(filePath);
             if (file.exists()) {

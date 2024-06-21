@@ -5,6 +5,7 @@ import com.radient.ftsapp.model.OrderItem;
 import com.radient.ftsapp.repository.OrderRepository;
 import com.radient.ftsapp.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -38,6 +39,6 @@ public class OrderService {
     }
 
     public Order getOrderById(UUID id) {
-        return orderRepository.findById(id).orElse(null);
+        return (Order) orderRepository.findByOrderId(id).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
     }
 }
