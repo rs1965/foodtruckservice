@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
- 
+import java.util.stream.StreamSupport;
+
 @Service
 public class OrderService {
 
@@ -28,14 +29,14 @@ public class OrderService {
         order.setOrderDate(LocalDateTime.now());
         Order savedOrder = orderRepository.save(order);
         for (OrderItem item : items) {
-            item.setOrder(savedOrder);
+            //item.setOrder(savedOrder);
             orderItemRepository.save(item);
         }
         return savedOrder;
     }
 
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        return StreamSupport.stream(orderRepository.findAll().spliterator(), false).toList();
     }
 
     public Order getOrderById(UUID id) {
