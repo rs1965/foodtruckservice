@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet id="1" author="ravis">
+        <sql>
+            create table if not exists orders(
+                foodtruck_id varchar(40),
+                order_id varchar(40),
+                customer_id varchar(40),
+                order_date datetime,
+
+                primary key(order_id)
+                );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

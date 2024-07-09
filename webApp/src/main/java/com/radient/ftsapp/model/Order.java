@@ -9,19 +9,19 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Entity
+@jakarta.persistence.Entity
 @Table(name = "orders")
 public class Order {
 
-    @Id
+    @jakarta.persistence.Id
     @GeneratedValue
-    @Column(name = "orderId", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+    @Column(name = "orderId", nullable = false)
     private UUID orderId;
 
-    @Column(name = "foodtruckId", columnDefinition = "BINARY(16)", nullable = false)
+    @Column(name = "foodtruckId", nullable = false)
     private UUID foodtruckId;
 
-    @Column(name = "customerId", columnDefinition = "BINARY(16)", nullable = false)
+    @Column(name = "customerId", nullable = false)
     private UUID customerId;
 
     @Column(name = "orderDate", nullable = false)

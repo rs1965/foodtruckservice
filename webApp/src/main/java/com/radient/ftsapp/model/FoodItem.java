@@ -8,14 +8,14 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Entity
+@jakarta.persistence.Entity
 @Table(name = "fooditems")
 public class FoodItem {
 
-    @Id
+    @jakarta.persistence.Id
     @GeneratedValue
-    @Column(name = "itemId", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
-    private UUID itemId;
+    @Column(name = "itemId", nullable = false)
+    private Long itemId;
 
     @Column(name = "itemPrice", nullable = false)
     private double itemPrice;

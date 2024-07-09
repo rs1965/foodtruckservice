@@ -34,7 +34,7 @@ public class FoodTruckControllerTest {
         FoodTruck nyTruck = new FoodTruck();
         nyTruck.setStatus("approved");
 
-        Mockito.when(foodTruckService.fetchAllFoodTrucks()).thenReturn(Arrays.asList(sfTruck, nyTruck));
+        Mockito.when(foodTruckService.fetchSFFoodTrucks(true)).thenReturn(Arrays.asList(sfTruck, nyTruck));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/getAllLocationDetails"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
