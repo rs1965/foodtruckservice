@@ -29,6 +29,7 @@
     "sass": "^1.75.0",
     "scss": "^0.2.4",
     "simple-react-validator": "^1.6.2",
+    "uuid": "^10.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

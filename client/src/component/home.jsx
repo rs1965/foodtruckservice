@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SearchBar from '../common/searchbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLocationDetails } from '../redux/actions/defaultAction';
+import { getLocationDetails, getLocationMetaDetails } from '../redux/actions/defaultAction';
 import SpinnerComponent from '../common/spinner';
 import CustomTable from '../common/customTable';
 import CanvasView from '../common/canvas';
@@ -58,8 +58,18 @@ function Home() {
             setText(cleanedValue);
         }
     }
-    const getLocationByText = () => {
-        dispatch(getLocationDetails())
+    const getLocationByText = (e) => {
+        e.preventDefault();
+        if (text === '') {
+            dispatch(getLocationDetails())
+        } else if (text !== "") {
+            if (['san francisco', 'sanfrancisco', 'san-francisco'].includes(text.split(',')[1].toLowerCase())) {
+                dispatch(getLocationMetaDetails('sf'))
+            }
+            if (['new york', 'newyork', 'new-york'].includes(text.split(',')[1].toLowerCase())) {
+                dispatch(getLocationMetaDetails('ny'))
+            }
+        }
         setShowLoader(true)
     }
 
