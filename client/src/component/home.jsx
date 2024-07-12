@@ -132,21 +132,6 @@ function Home() {
         setRecdSelected([])
         setShowOffcanvas(false)
     }
-    const testRecd = [
-        {
-            "camis": "50116556",
-            "dba": "WENDY'S",
-            "boro": "Queens",
-            "building": "1",
-            "street": "MAIN TERMINAL",
-            "phone": "9173282791",
-            "inspection_date": "1900-01-01T00:00:00.000",
-            "critical_flag": "Not Applicable",
-            "record_date": "2024-07-11T06:00:13.000",
-            "latitude": "0",
-            "longitude": "0",
-            "bbl": "4"
-        }]
     return (
         <>
             {showLoader && <SpinnerComponent />}
@@ -170,8 +155,6 @@ function Home() {
                             handleCloseOffcanvas={handleCloseOffcanvas} />
                     </>
                 }
-                <CanvasView view={true} data={testRecd}
-                    handleCloseOffcanvas={handleCloseOffcanvas} />
             </div>
         </>
     )
