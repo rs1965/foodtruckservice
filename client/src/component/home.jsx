@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SearchBar from '../common/searchbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLocationDetails } from '../redux/actions/defaultAction';
+import { getLocationDetails, getLocationMetaDetails } from '../redux/actions/defaultAction';
 import SpinnerComponent from '../common/spinner';
 import CustomTable from '../common/customTable';
 import CanvasView from '../common/canvas';
@@ -58,8 +58,18 @@ function Home() {
             setText(cleanedValue);
         }
     }
-    const getLocationByText = () => {
-        dispatch(getLocationDetails())
+    const getLocationByText = (e) => {
+        e.preventDefault();
+        if (text === '') {
+            dispatch(getLocationDetails())
+        } else if (text !== "") {
+            if (['san francisco', 'sanfrancisco', 'san-francisco'].includes(text.split(',')[1].toLowerCase())) {
+                dispatch(getLocationMetaDetails('sf'))
+            }
+            if (['new york', 'newyork', 'new-york'].includes(text.split(',')[1].toLowerCase())) {
+                dispatch(getLocationMetaDetails('ny'))
+            }
+        }
         setShowLoader(true)
     }
 
@@ -122,6 +132,21 @@ function Home() {
         setRecdSelected([])
         setShowOffcanvas(false)
     }
+    const testRecd = [
+        {
+            "camis": "50116556",
+            "dba": "WENDY'S",
+            "boro": "Queens",
+            "building": "1",
+            "street": "MAIN TERMINAL",
+            "phone": "9173282791",
+            "inspection_date": "1900-01-01T00:00:00.000",
+            "critical_flag": "Not Applicable",
+            "record_date": "2024-07-11T06:00:13.000",
+            "latitude": "0",
+            "longitude": "0",
+            "bbl": "4"
+        }]
     return (
         <>
             {showLoader && <SpinnerComponent />}
@@ -145,6 +170,8 @@ function Home() {
                             handleCloseOffcanvas={handleCloseOffcanvas} />
                     </>
                 }
+                <CanvasView view={true} data={testRecd}
+                    handleCloseOffcanvas={handleCloseOffcanvas} />
             </div>
         </>
     )

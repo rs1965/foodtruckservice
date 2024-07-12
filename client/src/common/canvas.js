@@ -35,6 +35,45 @@ function CanvasView(props) {
         })
         setTotalPrice(price)
     }
+
+    // Function to generate a UUID (for example purposes, using a simple mockup)
+    function generateUUID(key) {
+        if (key === 'foodtruckId') {
+            return '1xx-2xxx-3y'.replace(/[xy]/g, function (c) {
+                const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        if (key === 'orderId') {
+            return '0xx-2xxx-3y'.replace(/[xy]/g, function (c) {
+                const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+    }
+    // Filter items with quantity greater than 0
+    const filteredItems = items.filter(item => item.quantity > 0);
+
+    // Map to the desired format
+    const resultItems = filteredItems.map(item => ({
+        itemid: item.id,
+        quantity: item.quantity,
+        price: item.price
+    }));
+
+    const handleSubmitReq = (e) => {
+        e.preventDefault();
+
+        // Construct the final payload
+        const payload = {
+            foodtruckId: generateUUID('foodtruckId'),
+            orderId: generateUUID('orderId'),
+            items: resultItems,
+            totalPrice: totalPrice
+        };
+        alert(JSON.stringify(payload));
+
+    }
     return (
         <Offcanvas className='offcanvas-bgc' show={view} onHide={handleCloseOffcanvas} placement="end">
             <Offcanvas.Header closeButton>
@@ -73,7 +112,7 @@ function CanvasView(props) {
                 </div>
             </Offcanvas.Body>
             <div className="offcanvas-footer p-3 border-top" style={{ cursor: `${totalPrice !== 0 ? 'pointer' : 'no-drop'}` }}>
-                <Button variant="primary" disabled={totalPrice !== 0 ? false : true}>
+                <Button variant="primary" disabled={totalPrice !== 0 ? false : true} onClick={handleSubmitReq}>
                     Place Order
                 </Button>
             </div>

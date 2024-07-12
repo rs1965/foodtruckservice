@@ -23,3 +23,12 @@ export const getLocationDetails = () => async (dispatch) => {
         dispatch({ type: GET_LOCATION_DETAILS_FAIL, payload: err.response });
     })
 }
+
+export const getLocationMetaDetails = (city, status) => async (dispatch) => {
+
+    await CommonServices.getApi(`http://localhost:8080/getFoodTruckMeta?city=${city}&status=${false}`).then(function (res) {
+        dispatch({ type: GET_LOCATION_DETAILS_SUCCESS, payload: res });
+    }).catch(err => {
+        dispatch({ type: GET_LOCATION_DETAILS_FAIL, payload: err.response });
+    })
+}
