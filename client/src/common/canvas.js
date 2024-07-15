@@ -72,6 +72,7 @@ function CanvasView(props) {
             totalPrice: totalPrice
         };
         alert(JSON.stringify(payload));
+        setItems(initialItems);
 
     }
     return (
