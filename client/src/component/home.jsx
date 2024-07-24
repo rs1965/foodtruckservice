@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import SearchBar from '../common/searchbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLocationDetails, getLocationMetaDetails } from '../redux/actions/defaultAction';
+import { getLocationDetails, getLocationMetaDetails, setOrderDetails } from '../redux/actions/defaultAction';
 import SpinnerComponent from '../common/spinner';
 import CustomTable from '../common/customTable';
 import CanvasView from '../common/canvas';
+import { ToastContainer, Toast } from 'react-bootstrap';
 function Home() {
     const [location, setLocation] = useState([])
     const [text, setText] = useState('');
@@ -13,9 +14,23 @@ function Home() {
     const [tableData, setTableData] = useState([]);
     const [recdSelected, setRecdSelected] = useState([]);
     const [showOffcanvas, setShowOffcanvas] = useState(false);
+    const [show, setShow] = useState(false);
+    const [showMsg, setMsg] = useState('');
+
     const locationState = useSelector((state) => state.defaultReducer);
-    const { getLocationDetailsRes } = locationState
+    let { getLocationDetailsRes, setOrderDetailsRes } = locationState;
+    const initialItems = [
+        { id: 1, price: 5, name: 'ice cream', quantity: 0 },
+        { id: 2, price: 10, name: 'name of the iteam to be selected', quantity: 0 },
+        { id: 3, price: 3, name: 'idly', quantity: 0 },
+        { id: 4, price: 5, name: 'ice cream', quantity: 0 },
+        { id: 5, price: 10, name: 'name of the iteam to be selected', quantity: 0 },
+        { id: 6, price: 3, name: 'idly', quantity: 0 },
+    ];
+    const [items, setItems] = useState(initialItems);
     useEffect(() => {
+        setShow(false);
+        setMsg('')
         if (navigator.geolocation && location.length === 0) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -37,6 +52,20 @@ function Home() {
             setShowLoader(false);
         }
     }, [getLocationDetailsRes])
+    useEffect(() => {
+        if (setOrderDetailsRes?.statusCode === 200) {
+            setShowOffcanvas(false)
+            setShowLoader(false);
+            setItems(initialItems);
+            setMsg(setOrderDetailsRes?.data?.message)
+            setShow(true)
+        } else if (setOrderDetailsRes?.statusCode !== 200) {
+            setShowLoader(false);
+            setMsg(setOrderDetailsRes?.data?.message)
+            setShow(true);
+        }
+        setOrderDetailsRes = {}
+    }, [setOrderDetailsRes])
     function replaceRepeatingCommas(text) {
         const inputString = text;
         const firstCommaIndex = inputString.indexOf(",");
@@ -132,6 +161,10 @@ function Home() {
         setRecdSelected([])
         setShowOffcanvas(false)
     }
+    const handleSubmitRequest = (payload) => {
+        setShowLoader(true);
+        dispatch(setOrderDetails(payload));
+    }
     return (
         <>
             {showLoader && <SpinnerComponent />}
@@ -151,11 +184,20 @@ function Home() {
                     tableHeight="400px" handleRowClick={handleRowClick} />
                 {recdSelected &&
                     <>
-                        <CanvasView view={showOffcanvas} data={recdSelected}
-                            handleCloseOffcanvas={handleCloseOffcanvas} />
+                        <CanvasView view={showOffcanvas} data={recdSelected} items={items} setItems={setItems}
+                            handleCloseOffcanvas={handleCloseOffcanvas} handleSubmitRequest={handleSubmitRequest} />
                     </>
                 }
             </div>
+            {show && showMsg && <ToastContainer position="top-end" className="p-3">
+                <Toast onClose={() => setShow(false)} show={show} delay={2500} autohide>
+                    <Toast.Header>
+                        <strong className="me-auto">Message</strong>
+                        {/* <small>Just now</small> */}
+                    </Toast.Header>
+                    <Toast.Body>{showMsg}</Toast.Body>
+                </Toast>
+            </ToastContainer>}
         </>
     )
 }
