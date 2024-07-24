@@ -3,17 +3,7 @@ import { Button, Card, Offcanvas } from 'react-bootstrap';
 import QuantityField from './quantityField';
 import sample from '../assets/images/sample.jpg'
 function CanvasView(props) {
-    const { view, data, handleCloseOffcanvas } = props;
-
-    const initialItems = [
-        { id: 1, price: 5, name: 'ice cream', quantity: 0 },
-        { id: 2, price: 10, name: 'name of the iteam to be selected', quantity: 0 },
-        { id: 3, price: 3, name: 'idly', quantity: 0 },
-        { id: 4, price: 5, name: 'ice cream', quantity: 0 },
-        { id: 5, price: 10, name: 'name of the iteam to be selected', quantity: 0 },
-        { id: 6, price: 3, name: 'idly', quantity: 0 },
-    ];
-    const [items, setItems] = useState(initialItems);
+    const { view, handleCloseOffcanvas, items, setItems } = props;
     const [totalPrice, setTotalPrice] = useState(0);
     useEffect(() => {
         getTotalPrice()
@@ -50,6 +40,12 @@ function CanvasView(props) {
                 return v.toString(16);
             });
         }
+        if (key === 'customerId') {
+            return 'CUS2xxx-3y'.replace(/[xy]/g, function (c) {
+                const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
     }
     // Filter items with quantity greater than 0
     const filteredItems = items.filter(item => item.quantity > 0);
@@ -63,16 +59,17 @@ function CanvasView(props) {
 
     const handleSubmitReq = (e) => {
         e.preventDefault();
-
-        // Construct the final payload
         const payload = {
             foodtruckId: generateUUID('foodtruckId'),
             orderId: generateUUID('orderId'),
+            customerId: generateUUID('customerId'),
             items: resultItems,
             totalPrice: totalPrice
         };
-        alert(JSON.stringify(payload));
-        setItems(initialItems);
+        props.handleSubmitRequest(payload)
+        // Construct the final payload
+        // alert(JSON.stringify(payload));
+        // setItems(initialItems);
 
     }
     return (
