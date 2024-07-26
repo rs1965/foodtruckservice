@@ -23,7 +23,7 @@ public class OrderInsertController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/api/orders/insertOrder")
+    @PostMapping("/api/orders/insertOrder/delete")
     public ResponseEntity<Object> insertOrder(@Valid @RequestBody OrderInsert order, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().stream()

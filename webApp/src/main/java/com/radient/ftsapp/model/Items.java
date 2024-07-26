@@ -1,25 +1,44 @@
 package com.radient.ftsapp.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.time.LocalDate;
-import java.util.List;
 
-@Setter
+@Entity
+@Table(name = "OrderItems")
 @Getter
+@Setter
 public class Items {
-    // Getters and Setters
-    @Positive(message = "Item Id is Required")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    @NotNull(message = "Item ID is required")
+    @Size(min = 1, message = "Item ID is required")
     private String itemId;
 
-    @Positive(message = "Quantity is Required")
+    @Column(nullable = false)
+    @NotNull(message = "Order ID is required")
+    @Size(min = 1, message = "Order ID is required")
+    private String orderId;
+
+    @Column(nullable = false)
+    @NotNull(message = "Quantity is required")
+    @Positive(message = "Quantity must be positive")
     private int qty;
 
-    @Positive(message = "Item Price is Required")
-    private double itemPrice;
+    @Column(nullable = false)
+    @NotNull(message = "Item Price is required")
+    @Positive(message = "Item Price must be positive")
+    private float itemPrice;
 
+    @ManyToOne
+    @JoinColumn(name = "orderId", insertable = false, updatable = false)
+    private Order order;
 }
