@@ -1,7 +1,6 @@
 package com.radient.ftsapp.controller;
 
 import com.radient.ftsapp.model.Order;
-import com.radient.ftsapp.model.OrderItem;
 import com.radient.ftsapp.service.OrderService;
 import com.radient.ftsapp.utils.ResponseObject;
 import jakarta.validation.Valid;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/orders")
