@@ -3,6 +3,7 @@ import { Navbar, Nav, Dropdown } from 'react-bootstrap';
 import Avatar from 'react-avatar'
 import { GiFoodTruck } from "react-icons/gi";
 import SearchBar from '../common/searchbar';
+import { GoogleLoginProvider, FaceBookLoginProvider, LinkedInLoginProvider } from '../common/loginTypes';
 function Header() {
     return (
         <div className="App">
@@ -15,20 +16,9 @@ function Header() {
                     <p>Food Truck</p>
                 </Navbar.Brand>
                 <Nav className="ml-auto">
-                    <Dropdown>
-                        <Dropdown.Toggle as={Nav.Link} id="dropdown-basic" className="user-dropdown">
-                            {/* User Avatar and Name */}
-                            {/* <img src="avatar.png" alt="User Avatar" className="avatar" />
-                            <span className="user-name">John Doe</span>
-                             */}
-                            <Avatar name='Rudra' size='40' round={true} className='avatar' />
-                            <p>Rudra</p>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu className='drop-down-menu'>
-                            <Dropdown.Item href="#">Settings</Dropdown.Item>
-                            <Dropdown.Item href="#">Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <GoogleLoginProvider />
+                    <FaceBookLoginProvider />
+                    <LinkedInLoginProvider />
                 </Nav>
             </Navbar>
 
