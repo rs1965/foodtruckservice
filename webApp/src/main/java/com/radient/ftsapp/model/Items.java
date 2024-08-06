@@ -38,6 +38,13 @@ public class Items {
     @Positive(message = "Item Price must be positive")
     private float itemPrice;
 
+
+    @Column(nullable = false)
+    @NotNull(message = "Item Image is required")
+    @Lob
+    private byte[] itemImg;
+
+
     @ManyToOne
     @JoinColumn(name = "orderId", insertable = false, updatable = false)
     private Order order;

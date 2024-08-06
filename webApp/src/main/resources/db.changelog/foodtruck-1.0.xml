@@ -30,4 +30,10 @@
                 );
         </sql>
     </changeSet>
+    <!-- ChangeSet to add a BLOB field to OrderItems table -->
+    <changeSet id="4" author="teja">
+        <sql>
+            ALTER TABLE OrderItems ADD item_img BLOB;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

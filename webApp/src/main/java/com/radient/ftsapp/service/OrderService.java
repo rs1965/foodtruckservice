@@ -50,6 +50,7 @@ public class OrderService {
                 items.setItemId(itemReq.getItemId());
                 items.setQty(itemReq.getQty());
                 items.setItemPrice(itemReq.getItemPrice());
+                items.setItemImg(itemReq.getItemImg());
                 items.setOrder(savedOrder);
 
                 orderItemRepository.save(items);
