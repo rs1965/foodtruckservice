@@ -13,11 +13,6 @@ const GoogleLoginProvider = () => {
         console.error(error);
 
     };
-    useEffect(() => {
-        document.cookie.split(";").forEach(function (c) {
-            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 GMT");
-        });
-    }, [])
     return (
         <>
             <GoogleOAuthProvider clientId='1062604604364-mq6gdlkvqss554agatk08ram2b2ugume.apps.googleusercontent.com'>

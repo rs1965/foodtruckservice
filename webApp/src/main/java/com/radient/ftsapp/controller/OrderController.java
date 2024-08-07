@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orders")
+@CrossOrigin(origins = "http://localhost:3000")
 public class OrderController {
 
     private final OrderService orderService;
@@ -22,7 +22,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/insertOrder")
+    @PostMapping("/api/orders/insertOrder")
     public ResponseEntity<ResponseObject<Integer>> insertOrder(@Valid @RequestBody Order orderRequest) {
         ResponseObject<Integer> responseObject = orderService.insertOrder(orderRequest);
         if (responseObject.isSuccess()) {
@@ -37,7 +37,7 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/orders/{id}")
     public Order getOrderById(@PathVariable String id) {
         return orderService.getOrderById(id);
     }

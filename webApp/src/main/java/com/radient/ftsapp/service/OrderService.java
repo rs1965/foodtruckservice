@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -50,7 +52,7 @@ public class OrderService {
                 items.setItemId(itemReq.getItemId());
                 items.setQty(itemReq.getQty());
                 items.setItemPrice(itemReq.getItemPrice());
-                items.setItemImg(itemReq.getItemImg());
+                items.setItemImg(itemReq.getItemImg()); //- for longtext use
                 items.setOrder(savedOrder);
 
                 orderItemRepository.save(items);

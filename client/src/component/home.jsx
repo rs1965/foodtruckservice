@@ -6,7 +6,7 @@ import SpinnerComponent from '../common/spinner';
 import CustomTable from '../common/customTable';
 import CanvasView from '../common/canvas';
 import { ToastContainer, Toast } from 'react-bootstrap';
-import ImageToBlob from '../common/imageToBlob';
+// import ImageToBlob from '../common/imageToBlob';
 function Home() {
     const [location, setLocation] = useState([])
     const [text, setText] = useState('');
@@ -178,7 +178,7 @@ function Home() {
                             (text && text?.split(',')[0]?.trim() === '') ? 'Please Enter City' :
                                 (text && text?.split(',')[1]?.trim() === '') ? 'Please Enter State' : ''}
                 />
-                <ImageToBlob />
+                {/* <ImageToBlob /> */}
             </div>
             <div className='tablecustom'>
                 {/* <TableCustom columns={columns} nodes={tableData} /> */}

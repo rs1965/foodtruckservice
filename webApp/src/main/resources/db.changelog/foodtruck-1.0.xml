@@ -30,10 +30,10 @@
                 );
         </sql>
     </changeSet>
-    <!-- ChangeSet to add a BLOB field to OrderItems table -->
-    <changeSet id="4" author="teja">
+    <!-- ChangeSet to add a LONGTEXT field to OrderItems table -->
+    <changeSet id="3" author="teja">
         <sql>
-            ALTER TABLE OrderItems ADD item_img BLOB;
+            ALTER TABLE OrderItems ADD itemImg LONGTEXT;
         </sql>
     </changeSet>
 </databaseChangeLog>
