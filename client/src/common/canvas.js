@@ -99,7 +99,11 @@ function CanvasView(props) {
                             <Card.Body>
                                 <div className="row">
                                     <div className="col-md-4">
-                                        <img src={sample} className="img-fluid" alt="Product Image" />
+                                        <img src={sample} className="img-fluid" alt="Product Image" style={{ paddingBottom: '15px' }} />
+                                        <input
+                                            type="file"
+                                            onChange={(e) => handleImageChange(item.id, e.target.files[0])}
+                                        />
                                     </div>
                                     <div className="col-md-8">
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
