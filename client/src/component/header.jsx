@@ -1,10 +1,16 @@
-import React from 'react';
-import { Navbar, Nav, Dropdown } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Navbar, Nav, Dropdown, Button } from 'react-bootstrap';
 import Avatar from 'react-avatar'
 import { GiFoodTruck } from "react-icons/gi";
 import SearchBar from '../common/searchbar';
 import { GoogleLoginProvider, FaceBookLoginProvider } from '../common/loginTypes';
 function Header() {
+    const [userDetails, setUserDetails] = useState([])
+
+    const clearuserDetails = () => {
+        setUserDetails([])
+    }
+    const isLoggedIn = userDetails.length !== 0;
     return (
         <div className="App">
             {/* Navbar */}
@@ -16,8 +22,21 @@ function Header() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <GoogleLoginProvider />
-                        <FaceBookLoginProvider />
+                        {!isLoggedIn && (
+                            <>
+                                <div className={`login-button google-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
+                                    <GoogleLoginProvider userDetails={userDetails} setUserDetails={setUserDetails} />
+                                </div>
+                                <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
+                                    <FaceBookLoginProvider userDetails={userDetails} setUserDetails={setUserDetails} />
+                                </div>
+                            </>
+                        )}
+                        {isLoggedIn && (
+                            <div className={`login-button ${isLoggedIn ? 'visible' : 'hidden'}`}>
+                                <Button onClick={clearuserDetails}>LogOut</Button>
+                            </div>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

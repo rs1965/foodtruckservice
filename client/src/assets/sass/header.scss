@@ -7,12 +7,22 @@
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .11);
 }
 
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
 .navbar-logo img {
     width: 40px;
     height: 40px;
 }
 
 .brand-title {
+    margin-left: 10px;
+}
+
+.ml-auto {
+    margin-left: auto;
     display: flex;
     align-items: center;
 }
@@ -27,6 +37,24 @@
     height: 30px;
     border-radius: 50%;
     margin-right: 10px;
+}
+
+.login-button {
+    margin-left: 10px;
+}
+
+.login-button {
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.visible {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .user-name {

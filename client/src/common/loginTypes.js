@@ -4,10 +4,12 @@ import { jwtDecode } from "jwt-decode";
 import { LoginSocialFacebook } from 'reactjs-social-login';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import FacebookLogin from 'react-facebook-login';
-const GoogleLoginProvider = () => {
-
+const GoogleLoginProvider = (props) => {
+    const { setUserDetails } = props
     const handleGoogleSuccess = (response) => {
-        console.log(jwtDecode(response?.credential));
+        //console.log(jwtDecode(response?.credential));
+        setUserDetails(jwtDecode(response?.credential))
+
     };
     const handleGoogleFailure = (error) => {
         console.error(error);
@@ -27,13 +29,14 @@ const GoogleLoginProvider = () => {
 }
 
 
-const FaceBookLoginProvider = () => {
-
+const FaceBookLoginProvider = (props) => {
+    const { setUserDetails } = props
     const fetchUserData = async (accessToken) => {
         try {
             const res = await fetch(`https://graph.facebook.com/me?fields=name,picture&access_token=${accessToken}`);
             const data = await res.json();
-            console.log(data)
+            // console.log(data)
+            setUserDetails(data)
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
