@@ -1,37 +1,45 @@
-import React from 'react';
-import { Navbar, Nav, Dropdown } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Navbar, Nav, Dropdown, Button } from 'react-bootstrap';
 import Avatar from 'react-avatar'
 import { GiFoodTruck } from "react-icons/gi";
 import SearchBar from '../common/searchbar';
+import { GoogleLoginProvider, FaceBookLoginProvider } from '../common/loginTypes';
 function Header() {
+    const [userDetails, setUserDetails] = useState([])
+
+    const clearuserDetails = () => {
+        setUserDetails([])
+    }
+    const isLoggedIn = userDetails.length !== 0;
     return (
         <div className="App">
             {/* Navbar */}
             <Navbar bg="light" expand="lg" className="navbar">
                 <Navbar.Brand href="#" className="navbar-logo brand-title">
-                    {/* Website Logo */}
-                    {/* <img src="logo.png" alt="Food Truck" className="logo" /> */}
                     <GiFoodTruck size={50} />
                     <p>Food Truck</p>
                 </Navbar.Brand>
-                <Nav className="ml-auto">
-                    <Dropdown>
-                        <Dropdown.Toggle as={Nav.Link} id="dropdown-basic" className="user-dropdown">
-                            {/* User Avatar and Name */}
-                            {/* <img src="avatar.png" alt="User Avatar" className="avatar" />
-                            <span className="user-name">John Doe</span>
-                             */}
-                            <Avatar name='Rudra' size='40' round={true} className='avatar' />
-                            <p>Rudra</p>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu className='drop-down-menu'>
-                            <Dropdown.Item href="#">Settings</Dropdown.Item>
-                            <Dropdown.Item href="#">Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Nav>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="ml-auto">
+                        {!isLoggedIn && (
+                            <>
+                                <div className={`login-button google-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
+                                    <GoogleLoginProvider userDetails={userDetails} setUserDetails={setUserDetails} />
+                                </div>
+                                <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
+                                    <FaceBookLoginProvider userDetails={userDetails} setUserDetails={setUserDetails} />
+                                </div>
+                            </>
+                        )}
+                        {isLoggedIn && (
+                            <div className={`login-button ${isLoggedIn ? 'visible' : 'hidden'}`}>
+                                <Button onClick={clearuserDetails}>LogOut</Button>
+                            </div>
+                        )}
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar>
-
             {/* Sidebar */}
             <div className="sidebar">
                 <ul>

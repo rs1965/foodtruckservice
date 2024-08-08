@@ -3,7 +3,6 @@ import SpinnerComponent from './common/spinner';
 import Header from './component/header';
 import logo from './logo.svg';
 import Home from './component/home';
-
 function App() {
   return (
     <>

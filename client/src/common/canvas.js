@@ -25,7 +25,17 @@ function CanvasView(props) {
         })
         setTotalPrice(price)
     }
-
+    const handleImageChange = (id, file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setItems(prevItems =>
+                prevItems.map(item =>
+                    item.id === id ? { ...item, itemImg: reader.result } : item
+                )
+            );
+        };
+        reader.readAsDataURL(file);
+    };
     // Function to generate a UUID (for example purposes, using a simple mockup)
     function generateUUID(key) {
         if (key === 'foodtruckId') {
@@ -63,7 +73,12 @@ function CanvasView(props) {
             foodtruckId: generateUUID('foodtruckId'),
             orderId: generateUUID('orderId'),
             customerId: generateUUID('customerId'),
-            items: resultItems,
+            items: filteredItems.map(item => ({
+                itemId: item.id,
+                qty: item.quantity,
+                itemPrice: item.price,
+                itemImg: item.itemImg
+            })),
             totalPrice: totalPrice
         };
         props.handleSubmitRequest(payload)
@@ -84,7 +99,11 @@ function CanvasView(props) {
                             <Card.Body>
                                 <div className="row">
                                     <div className="col-md-4">
-                                        <img src={sample} className="img-fluid" alt="Product Image" />
+                                        <img src={sample} className="img-fluid" alt="Product Image" style={{ paddingBottom: '15px' }} />
+                                        <input
+                                            type="file"
+                                            onChange={(e) => handleImageChange(item.id, e.target.files[0])}
+                                        />
                                     </div>
                                     <div className="col-md-8">
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
