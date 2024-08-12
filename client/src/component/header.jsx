@@ -3,7 +3,7 @@ import { Navbar, Nav, Dropdown, Button } from 'react-bootstrap';
 import Avatar from 'react-avatar'
 import { GiFoodTruck } from "react-icons/gi";
 import SearchBar from '../common/searchbar';
-import { GoogleLoginProvider, FaceBookLoginProvider } from '../common/loginTypes';
+import { GoogleLoginProvider, FaceBookLoginProvider, LinkedInLogin } from '../common/loginTypes';
 function Header() {
     const [userDetails, setUserDetails] = useState([])
 
@@ -29,6 +29,9 @@ function Header() {
                                 </div>
                                 <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
                                     <FaceBookLoginProvider userDetails={userDetails} setUserDetails={setUserDetails} />
+                                </div>
+                                <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
+                                    <LinkedInLogin userDetails={userDetails} setUserDetails={setUserDetails} />
                                 </div>
                             </>
                         )}
