@@ -248,31 +248,6 @@ table {
   padding: 20px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 200px;
-    /* Adjust width for smaller screens */
-  }
-  .content {
-    margin-left: 200px;
-    /* Adjust margin to match sidebar width */
-  }
-}
-@media (max-width: 480px) {
-  .sidebar {
-    width: 100%;
-    /* Full width on very small screens */
-    height: auto;
-    /* Adjust height to fit content */
-    position: relative;
-    /* Sidebar scrolls with page */
-  }
-  .content {
-    margin-left: 0;
-    /* Remove margin on very small screens */
-  }
-}
 .search-container {
   display: flex;
   position: sticky;
@@ -377,6 +352,48 @@ table {
   margin: 5% 0 5% 0;
 }
 
+.form-group {
+  margin: 5px 190px;
+}
+
+.item-main {
+  border: 2px solid black;
+  margin-top: 8vw;
+}
+
+.item-Fields {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.required-asterisk {
+  color: red;
+  margin-left: 2px;
+}
+
+.customTextField {
+  padding: 10px;
+}
+
+.customTextField:focus {
+  box-shadow: 7px 6px 89px -15px rgba(12, 190, 201, 0.39);
+  /* Adjusted offset */
+  outline: none;
+  border-radius: 5px;
+}
+
+.textareawidth {
+  width: 40vw;
+}
+
+.itemButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
 body {
   background-color: #c8dfdf;
 }
@@ -390,4 +407,6 @@ body {
 .text-error-display {
   color: red;
   font-size: medium;
+  width: -moz-max-content;
+  width: max-content;
 }/*# sourceMappingURL=main.css.map */
