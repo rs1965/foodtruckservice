@@ -36,4 +36,17 @@
             ALTER TABLE OrderItems ADD itemImg LONGTEXT;
         </sql>
     </changeSet>
+
+    <changeSet id="4" author="teja">
+        <sql>
+            CREATE TABLE IF NOT EXISTS Users (
+            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+            type VARCHAR(20) NOT NULL,
+            role VARCHAR(20) NOT NULL,
+            userId VARCHAR(50) NOT NULL UNIQUE,
+            token VARCHAR(255) NOT NULL,
+            expiryDateTime DATETIME NOT NULL
+            );
+        </sql>
+    </changeSet>
 </databaseChangeLog>
