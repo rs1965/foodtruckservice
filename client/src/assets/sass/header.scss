@@ -63,13 +63,13 @@
 
 /* Sidebar styles */
 .sidebar {
-    width: max-content;
+    width: 100px;
     height: 100%;
-    flex-basis: auto;
     background-color: #f4f4f4;
-    position: absolute;
-    padding: 20px;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .11);
+    position: fixed;
+    padding: 20px 0;
+    overflow-y: auto;
+    box-shadow: 0 3px 6px 0 rgb(17 82 73 / 86%);
 }
 
 .sidebar ul {
@@ -77,31 +77,69 @@
     padding: 0;
 }
 
-.sidebar ul li {
-    margin: 15px 0;
-    height: 25px;
-    border-bottom: 2px solid black;
+.sidebar ul li:hover {
+    // margin: 15px 0;
+    // height: 25px;
+    background-color: #c8dfdf;
+
 }
 
 .sidebar ul li a {
+    // text-decoration: none;
+    // color: #000;
+    display: grid;
+    padding: 15px;
+    color: black;
     text-decoration: none;
-    color: #000;
 }
 
-.sidebar ul li:hover {
-    border-color: $bg_container_color;
+// .sidebar ul li a:hover {
+//     background-color: #555;
+// }
+
+/* Active state for li */
+.sidebar ul li.active {
+    background-color: #c8dfdf;
+    /* Different color for the active item */
 }
 
 .main-content {
-    margin-left: 90px;
+    margin-left: 110px;
     // padding: 20px;
 }
 
 .tablecustom {
-    margin-left: 72px;
+    margin-left: 93px;
     padding: 20px;
 }
 
-.selected-sidebar-option {
-    background-color: $bg_container_color;
-}
+
+
+// /* Responsive adjustments */
+// @media (max-width: 768px) {
+//     .sidebar {
+//         width: 200px;
+//         /* Adjust width for smaller screens */
+//     }
+
+//     .content {
+//         margin-left: 200px;
+//         /* Adjust margin to match sidebar width */
+//     }
+// }
+
+// @media (max-width: 480px) {
+//     .sidebar {
+//         width: 100%;
+//         /* Full width on very small screens */
+//         height: auto;
+//         /* Adjust height to fit content */
+//         position: relative;
+//         /* Sidebar scrolls with page */
+//     }
+
+//     .content {
+//         margin-left: 0;
+//         /* Remove margin on very small screens */
+//     }
+// }
