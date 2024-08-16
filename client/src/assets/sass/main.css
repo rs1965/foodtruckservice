@@ -148,8 +148,13 @@ table {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  position: sticky;
+  position: relative;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-logo img {
@@ -158,6 +163,11 @@ table {
 }
 
 .brand-title {
+  margin-left: 10px;
+}
+
+.ml-auto {
+  margin-left: auto;
   display: flex;
   align-items: center;
 }
@@ -174,20 +184,37 @@ table {
   margin-right: 10px;
 }
 
+.login-button {
+  margin-left: 10px;
+}
+
+.login-button {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .user-name {
   font-size: 16px;
 }
 
 /* Sidebar styles */
 .sidebar {
-  width: -moz-max-content;
-  width: max-content;
+  width: 100px;
   height: 100%;
-  flex-basis: auto;
   background-color: #f4f4f4;
-  position: absolute;
-  padding: 20px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
+  position: fixed;
+  padding: 20px 0;
+  overflow-y: auto;
+  box-shadow: 0 3px 6px 0 rgba(17, 82, 73, 0.86);
 }
 
 .sidebar ul {
@@ -195,32 +222,30 @@ table {
   padding: 0;
 }
 
-.sidebar ul li {
-  margin: 15px 0;
-  height: 25px;
-  border-bottom: 2px solid black;
+.sidebar ul li:hover {
+  background-color: #c8dfdf;
 }
 
 .sidebar ul li a {
+  display: grid;
+  padding: 15px;
+  color: black;
   text-decoration: none;
-  color: #000;
 }
 
-.sidebar ul li:hover {
-  border-color: #c8dfdf;
+/* Active state for li */
+.sidebar ul li.active {
+  background-color: #c8dfdf;
+  /* Different color for the active item */
 }
 
 .main-content {
-  margin-left: 90px;
+  margin-left: 110px;
 }
 
 .tablecustom {
-  margin-left: 72px;
+  margin-left: 93px;
   padding: 20px;
-}
-
-.selected-sidebar-option {
-  background-color: #c8dfdf;
 }
 
 .search-container {
@@ -301,16 +326,72 @@ table {
   align-items: center;
 }
 
-.quantity-field button {
-  width: 30px;
-  height: 30px;
-  font-size: 18px;
+.quantity-field-btn {
+  border-radius: 40%;
+  margin: 5%;
 }
 
-.quantity-field input {
-  width: 50px;
-  text-align: center;
-  margin: 0 5px;
+.offcanvas-bgc {
+  background-color: #c8dfdf;
+}
+
+.card-border {
+  margin: 0 0 5% 0;
+  border: 1px solid black;
+}
+
+.offcanvas-footer {
+  text-align: right;
+}
+
+.price-details {
+  border-top: 2px solid black;
+}
+
+.price-details-label {
+  margin: 5% 0 5% 0;
+}
+
+.form-group {
+  margin: 5px 190px;
+}
+
+.item-main {
+  border: 2px solid black;
+  margin-top: 8vw;
+}
+
+.item-Fields {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.required-asterisk {
+  color: red;
+  margin-left: 2px;
+}
+
+.customTextField {
+  padding: 10px;
+}
+
+.customTextField:focus {
+  box-shadow: 7px 6px 89px -15px rgba(12, 190, 201, 0.39);
+  /* Adjusted offset */
+  outline: none;
+  border-radius: 5px;
+}
+
+.textareawidth {
+  width: 40vw;
+}
+
+.itemButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 body {
@@ -326,4 +407,6 @@ body {
 .text-error-display {
   color: red;
   font-size: medium;
+  width: -moz-max-content;
+  width: max-content;
 }/*# sourceMappingURL=main.css.map */

@@ -4,6 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import { LoginSocialFacebook } from 'reactjs-social-login';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import FacebookLogin from 'react-facebook-login';
+import { useLinkedIn } from 'react-linkedin-login-oauth2';
+import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png';
 const GoogleLoginProvider = (props) => {
     const { setUserDetails } = props
     const handleGoogleSuccess = (response) => {
@@ -64,6 +66,24 @@ const FaceBookLoginProvider = (props) => {
     );
 }
 
+function LinkedInLogin() {
+    const redirectUri = `${window.location.origin}/linkedin`
+    const { linkedInLogin } = useLinkedIn({
+        clientId: '86tgjuy5776q1a',
+        redirectUri: redirectUri,
+        onSuccess: (code) => console.log(code),
+        onError: (error) => console.log(error),
+    });
+
+    return (
+        <img
+            onClick={linkedInLogin}
+            src={linkedin}
+            alt="Sign in with LinkedIn"
+            style={{ maxWidth: '180px', cursor: 'pointer' }}
+        />
+    );
+}
 
 
-export { GoogleLoginProvider, FaceBookLoginProvider }
+export { GoogleLoginProvider, FaceBookLoginProvider, LinkedInLogin }

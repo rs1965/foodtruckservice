@@ -3,14 +3,19 @@ import { Navbar, Nav, Dropdown, Button } from 'react-bootstrap';
 import Avatar from 'react-avatar'
 import { GiFoodTruck } from "react-icons/gi";
 import SearchBar from '../common/searchbar';
-import { GoogleLoginProvider, FaceBookLoginProvider } from '../common/loginTypes';
+import { GoogleLoginProvider, FaceBookLoginProvider, LinkedInLogin } from '../common/loginTypes';
+import { Link } from 'react-router-dom';
 function Header() {
     const [userDetails, setUserDetails] = useState([])
-
+    const [activeItem, setActiveItem] = useState(null);
     const clearuserDetails = () => {
         setUserDetails([])
     }
     const isLoggedIn = userDetails.length !== 0;
+
+    const handleClick = (id) => {
+        setActiveItem(id);
+    }
     return (
         <div className="App">
             {/* Navbar */}
@@ -30,6 +35,9 @@ function Header() {
                                 <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
                                     <FaceBookLoginProvider userDetails={userDetails} setUserDetails={setUserDetails} />
                                 </div>
+                                <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
+                                    <LinkedInLogin userDetails={userDetails} setUserDetails={setUserDetails} />
+                                </div>
                             </>
                         )}
                         {isLoggedIn && (
@@ -43,9 +51,9 @@ function Header() {
             {/* Sidebar */}
             <div className="sidebar">
                 <ul>
-                    <li><a href="#">View</a></li>
-                    <li><a href="#">Edit</a></li>
-                    <li><a href="#">About</a></li>
+                    <li className={activeItem === 'item' ? 'active' : ''} onClick={() => handleClick('item')}><Link to={'/addItems'}>Add Item</Link></li>
+                    <li className={activeItem === 'home' ? 'active' : ''} onClick={() => handleClick('home')}><Link to={'/'}>Edit</Link></li>
+                    <li className={activeItem === 'about' ? 'active' : ''} onClick={() => handleClick('about')}><Link to={'/'}>About</Link></li>
                 </ul>
             </div>
         </div>

@@ -1,0 +1,41 @@
+.form-group {
+  margin: 5px 190px;
+}
+
+.item-main {
+  border: 2px solid black;
+  margin-top: 8vw;
+}
+
+.item-Fields {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.required-asterisk {
+  color: red;
+  margin-left: 2px;
+}
+
+.customTextField {
+  padding: 10px;
+}
+
+.customTextField:focus {
+  box-shadow: 7px 6px 89px -15px rgba(12, 190, 201, 0.39);
+  /* Adjusted offset */
+  outline: none;
+  border-radius: 5px;
+}
+
+.textareawidth {
+  width: 40vw;
+}
+
+.itemButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}/*# sourceMappingURL=addItems.css.map */

@@ -6,6 +6,7 @@
 @import 'searchbar.scss';
 @import 'customTable.scss';
 @import 'quantityField.scss';
+@import 'addItems.scss';
 
 body {
     background-color: $bg_container_color;
@@ -20,4 +21,5 @@ body {
 .text-error-display {
     color: red;
     font-size: medium;
+    width: max-content;
 }
