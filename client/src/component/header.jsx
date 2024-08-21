@@ -51,7 +51,7 @@ function Header() {
             {/* Sidebar */}
             <div className="sidebar">
                 <ul>
-                    <li className={activeItem === 'item' ? 'active' : ''} onClick={() => handleClick('item')}><Link to={'/addItems'}>Add Item</Link></li>
+                    {userDetails.length !== 0 && <li className={activeItem === 'item' ? 'active' : ''} onClick={() => handleClick('item')}><Link to={'/addItems'}>Add Item</Link></li>}
                     <li className={activeItem === 'home' ? 'active' : ''} onClick={() => handleClick('home')}><Link to={'/'}>Edit</Link></li>
                     <li className={activeItem === 'about' ? 'active' : ''} onClick={() => handleClick('about')}><Link to={'/'}>About</Link></li>
                 </ul>
