@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
-import { LoginSocialFacebook } from 'reactjs-social-login';
-import { FacebookLoginButton } from 'react-social-login-buttons';
 import FacebookLogin from 'react-facebook-login';
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png';
+import { FaFacebook, FaLinkedin } from 'react-icons/fa';
 const GoogleLoginProvider = (props) => {
     const { setUserDetails } = props
     const handleGoogleSuccess = (response) => {
@@ -23,6 +22,9 @@ const GoogleLoginProvider = (props) => {
                 <GoogleLogin
                     onSuccess={handleGoogleSuccess}
                     onFailure={handleGoogleFailure}
+                    type='icon'
+                    theme='filled_blue'
+                    size='large'
                 />
             </GoogleOAuthProvider>
 
@@ -56,18 +58,20 @@ const FaceBookLoginProvider = (props) => {
             <FacebookLogin
                 appId={498310359268039}
                 autoLoad={false}
+                textButton=''
                 fieldsProfile={
                     'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
                 }
+                cssClass='custom-facebook-icon'
                 callback={responseFacebook}
-                icon="fa-facebook"
+                icon={<FaFacebook className="custom-facebook-icon" />}
             />
         </>
     );
 }
 
 function LinkedInLogin() {
-    const redirectUri = `${window.location.origin}/linkedin`
+    const redirectUri = `${window.location.origin}/linkedin/callback`
     const { linkedInLogin } = useLinkedIn({
         clientId: '86tgjuy5776q1a',
         redirectUri: redirectUri,
@@ -76,11 +80,10 @@ function LinkedInLogin() {
     });
 
     return (
-        <img
+        <FaLinkedin
             onClick={linkedInLogin}
-            src={linkedin}
-            alt="Sign in with LinkedIn"
-            style={{ maxWidth: '180px', cursor: 'pointer' }}
+            // src={FaLinkedin}
+            className="custom-linkedin-icon"
         />
     );
 }

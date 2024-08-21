@@ -143,3 +143,36 @@
 //         /* Remove margin on very small screens */
 //     }
 // }
+.custom-facebook-icon {
+    background-color: white;
+    /* Facebook blue */
+    border-radius: 18%;
+    /* Make it a circle like the Google icon */
+    padding: 3px;
+    /* Adjust the padding to match the Google icon */
+    color: #4267B2;
+    /* Icon color */
+    font-size: 27px;
+    /* Adjust size as needed */
+}
+
+.custom-linkedin-icon {
+    background-color: white;
+    /* LinkedIn blue */
+    border-radius: 18%;
+    /* Make it circular like the Google icon */
+    padding: 4px;
+    /* Adjust the padding to match the Google icon */
+    color: #0077B5;
+    /* Icon color */
+    font-size: 27px;
+    /* Adjust size as needed */
+    cursor: pointer;
+    /* Maintain the pointer cursor */
+    display: inline-flex;
+    border: solid 2px;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+}
