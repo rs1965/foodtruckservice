@@ -2,33 +2,31 @@ package com.radient.ftsapp.config;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
-@Setter
 @Getter
+@Setter
+@Configuration
 public class ApiResponsesConfig {
+
     private boolean isSuccess;
     private String message;
 
-    // Constructors
+    // Default constructor
+    public ApiResponsesConfig() {
+    }
+
+    // Parameterized constructor
     public ApiResponsesConfig(boolean isSuccess, String message) {
         this.isSuccess = isSuccess;
         this.message = message;
     }
 
-    // Getters and Setters
-//    public boolean isSuccess() {
-//        return isSuccess;
-//    }
-//
-//    public void setSuccess(boolean success) {
-//        isSuccess = success;
-//    }
-//
-//    public String getMessage() {
-//        return message;
-//    }
-//
-//    public void setMessage(String message) {
-//        this.message = message;
-
+    // Example of a bean method
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }
