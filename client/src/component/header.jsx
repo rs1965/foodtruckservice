@@ -24,37 +24,35 @@ function Header() {
         const tokenExp = localStorage.getItem('token_exp');
         if (tokenExp) {
             const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
-            console.log(currentTime.toString() < tokenExp)
-            if (currentTime.toString() < tokenExp) {
+            console.log(typeof currentTime, typeof tokenExp)
+            if (Number(currentTime) < Number(tokenExp)) {
                 setIsLoggedIn(true);
             }
+        } else {
+            setIsLoggedIn(false);
         }
-    }, []);
+    }, [insertLoginUserSaveRes, userDetails]);
     const clearuserDetails = () => {
         setUserDetails([])
         localStorage.removeItem('token_exp');
-        localStorage.removeItem('userDetails');
-        setIsLoggedIn(false)
         setIsChecked(false)
     }
     useEffect(() => {
         if (insertLoginUserSaveRes?.statusCode === 200) {
             setShowLoader(false);
             setMsg(insertLoginUserSaveRes?.data?.message)
-            // setIsLoggedIn(true)
+            localStorage.setItem('token_exp', userDetails?.expiryDateTime * 1000);
             setShow(true)
         } else if (insertLoginUserSaveRes?.statusCode !== 200) {
             setShowLoader(false);
             setMsg(insertLoginUserSaveRes?.data?.message)
             setShow(true);
         }
-        insertLoginUserSaveRes = {}
     }, [insertLoginUserSaveRes])
     const handleClick = (id) => {
         setActiveItem(id);
     }
     const saveLoginDetails = (data) => {
-        console.log(data)
         setShowLoader(true)
         setUserDetails(data)
         dispatch(insertLoginUserSave(data))
@@ -62,7 +60,6 @@ function Header() {
     const swtichHandle = (event) => {
         setIsChecked(event.target.checked);
     }
-    console.log(isLoggedIn)
     return (
         <>
             <div className="App">
