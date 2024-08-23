@@ -35,20 +35,23 @@ public class FoodItemService {
             FoodItem item = new FoodItem();
             item.setItemPrice(foodItem.getItemPrice());
             item.setItemDescription(foodItem.getItemDescription());
+            item.setItemName(foodItem.getItemName());
             item.setItemImages(foodItem.getItemImages());
             item.setFoodTruckId(foodItem.getFoodTruckId());
 
             foodItemRepository.save(item);
 
-            return new ResponseObject<>(true, "Order Inserted Successfully", 1);
-        }
-        catch (DataIntegrityViolationException e) {
+            return new ResponseObject<>(true, "Item Inserted Successfully", 1);
+        } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
             return new ResponseObject<>(false, "Database integrity violation: " + e.getMessage(), null);
         } catch (ConstraintViolationException e) {
+            e.printStackTrace();
             return new ResponseObject<>(false, "Validation error: " + e.getMessage(), null);
         } catch (Exception e){
             e.printStackTrace();
             return new ResponseObject<>(false, "Unexpected error: " + e.getMessage(), null);
         }
     }
+
 }
