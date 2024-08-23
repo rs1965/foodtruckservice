@@ -24,7 +24,6 @@ function Header() {
         const tokenExp = localStorage.getItem('token_exp');
         if (tokenExp) {
             const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
-            console.log(typeof currentTime, typeof tokenExp)
             if (Number(currentTime) < Number(tokenExp)) {
                 setIsLoggedIn(true);
             }

@@ -10,6 +10,8 @@ export const GET_USER_DETAILS_SAVE_RES_SUCCESS = "GET_USER_DETAILS_SAVE_RES_SUCC
 export const GET_USER_DETAILS_SAVE_RES_FAIL = "GET_USER_DETAILS_SAVE_RES_FAIL";
 export const GET_USER_DETAILS_RES_SUCCESS = "GET_USER_DETAILS_RES_SUCCESS";
 export const GET_USER_DETAILS_RES_FAIL = "GET_USER_DETAILS_RES_FAIL";
+export const ITEM_SAVE_RES_SUCCESS = "ITEM_SAVE_RES_SUCCESS";
+export const ITEM_SAVE_RES_FAIL = "ITEM_SAVE_RES_FAIL";
 
 const CommonServices = Services
 
@@ -55,5 +57,14 @@ export const getUserDetails = (id) => async (dispatch) => {
         dispatch({ type: GET_USER_DETAILS_RES_SUCCESS, payload: res });
     }).catch(err => {
         dispatch({ type: GET_USER_DETAILS_RES_FAIL, payload: err.response });
+    })
+}
+
+export const insertItemSave = (payload) => async (dispatch) => {
+
+    await CommonServices.postApi(`http://localhost:8080/item/addItem`, payload).then(function (res) {
+        dispatch({ type: ITEM_SAVE_RES_SUCCESS, payload: res });
+    }).catch(err => {
+        dispatch({ type: ITEM_SAVE_RES_FAIL, payload: err.response });
     })
 }
