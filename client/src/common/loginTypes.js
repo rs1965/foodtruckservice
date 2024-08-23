@@ -8,7 +8,7 @@ import { FaFacebook, FaLinkedin } from 'react-icons/fa';
 
 const getExpiryDateTime = (dt) => {
     const expTime = dt * 1000; // seconds to milliseconds convert
-    localStorage.setItem('token_exp', expTime);
+    // localStorage.setItem('token_exp', expTime);
     return new Date(expTime)
 }
 const GoogleLoginProvider = (props) => {
