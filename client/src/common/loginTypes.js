@@ -5,11 +5,25 @@ import FacebookLogin from 'react-facebook-login';
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png';
 import { FaFacebook, FaLinkedin } from 'react-icons/fa';
+
+const getExpiryDateTime = (dt) => {
+    const expTime = dt * 1000; // seconds to milliseconds convert
+    localStorage.setItem('token_exp', expTime);
+    return new Date(expTime)
+}
 const GoogleLoginProvider = (props) => {
-    const { setUserDetails } = props
+    const { setUserDetails, isChecked } = props
     const handleGoogleSuccess = (response) => {
-        //console.log(jwtDecode(response?.credential));
-        setUserDetails(jwtDecode(response?.credential))
+        const data = jwtDecode(response.credential)
+        const payload = {
+            userId: data?.sub,
+            type: "google",
+            role: isChecked ? 'Admin' : 'Consumer',
+            emailId: data?.email,
+            name: `${data?.given_name, data?.family_name}`,
+            expiryDateTime: getExpiryDateTime(data?.exp)
+        }
+        setUserDetails(payload)
 
     };
     const handleGoogleFailure = (error) => {
@@ -34,21 +48,36 @@ const GoogleLoginProvider = (props) => {
 
 
 const FaceBookLoginProvider = (props) => {
-    const { setUserDetails } = props
-    const fetchUserData = async (accessToken) => {
-        try {
-            const res = await fetch(`https://graph.facebook.com/me?fields=name,picture&access_token=${accessToken}`);
-            const data = await res.json();
-            // console.log(data)
-            setUserDetails(data)
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    };
+    const { setUserDetails, isChecked } = props
+    // const fetchUserData = async (accessToken) => {
+    //     try {
+    //         const res = await fetch(`https://graph.facebook.com/me?fields=name,picture,email&access_token=${accessToken}`);
+    //         const data = await res.json();
+    //         const payload = {
+    //             userId: "092",
+    //             type: "Google",
+    //             role: "Consumer",
+    //             expiryDateTime: "2024-12-31T23:59:59"
+    //         }
+    //         setUserDetails(data)
+    //     } catch (error) {
+    //         console.error('Error fetching user data:', error);
+    //     }
+    // };
 
     const responseFacebook = (response) => {
         if (response.accessToken) {
-            fetchUserData(response.accessToken);
+            // fetchUserData(response.accessToken);
+            const payload = {
+                userId: response?.id,
+                type: "facebook",
+                role: isChecked ? 'Admin' : 'Consumer',
+                emailId: response?.email,
+                name: response?.name,
+                expiryDateTime: getExpiryDateTime(response?.data_access_expiration_time)
+            }
+            setUserDetails(payload)
+
         }
         // Handle the response from Facebook here (e.g., send the token to your backend)
     };
@@ -59,9 +88,10 @@ const FaceBookLoginProvider = (props) => {
                 appId={498310359268039}
                 autoLoad={false}
                 textButton=''
-                fieldsProfile={
-                    'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
+                fields={
+                    'id,name,email'
                 }
+                scope="public_profile,email"
                 cssClass='custom-facebook-icon'
                 callback={responseFacebook}
                 icon={<FaFacebook className="custom-facebook-icon" />}

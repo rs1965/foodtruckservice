@@ -49,4 +49,33 @@
             );
         </sql>
     </changeSet>
+    <changeSet id="5" author="teja">
+        <sql>
+            ALTER table Users drop column token
+        </sql>
+    </changeSet>
+
+    <changeSet id="6" author="teja">
+        <sql>
+            ALTER TABLE Users ADD emailId varchar(50),ADD name varchar(50);
+        </sql>
+    </changeSet>
+    <changeSet id="7" author="teja">
+        <sql>
+            ALTER TABLE Users ADD timeStamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+        </sql>
+    </changeSet>
+    <changeSet id="8" author="teja">
+        <sql>
+            CREATE TABLE IF NOT EXISTS foodItems (
+                itemId BIGINT AUTO_INCREMENT PRIMARY KEY,
+                foodTruckId VARCHAR(50) NOT NULL,
+                itemPrice DOUBLE NOT NULL,
+                itemName VARCHAR(50) NOT NULL,
+                itemDescription VARCHAR(250) NOT NULL,
+                itemImages LONGTEXT NOT NULL
+                );
+        </sql>
+    </changeSet>
 </databaseChangeLog>

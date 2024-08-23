@@ -1,10 +1,7 @@
 package com.radient.ftsapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,12 +16,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Adjust generation strategy as per your needs
     private Long id; // Assuming you have an ID field
 
+    @Column(nullable = false)
+    @NotNull(message = "Type is required")
     private String type; // LinkedIn/Google/FB
+
+    @Column(nullable = false)
+    @NotNull(message = "Role required")
     private String role; // FTAdmin/Consumer
+
+    @Column(nullable = false)
+    @NotNull(message = "userId required")
     private String userId; // UserID from the authentication method
-    private String token; // Token or password
+
+    @Column(nullable = false)
+    @NotNull(message = "ExpiryDate is required")
     private LocalDateTime expiryDateTime; // Expiry DateTime
 
+    @Column(nullable = false)
+    @NotNull(message = "emailId required")
+    private String emailId;
+
+    @Column(nullable = false)
+    @NotNull(message = "name required")
+    private String name;
+
+    private LocalDateTime timeStamp;
     public User() {
     }
 }

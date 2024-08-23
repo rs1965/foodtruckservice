@@ -1,6 +1,9 @@
 import {
     GET_LOCATION_DETAILS_SUCCESS, GET_LOCATION_DETAILS_FAIL,
-    GET_ORDER_DETAILS_SAVE_SUCCESS, GET_ORDER_DETAILS_SAVE_FAIL
+    GET_ORDER_DETAILS_SAVE_SUCCESS, GET_ORDER_DETAILS_SAVE_FAIL,
+    GET_USER_DETAILS_SAVE_RES_SUCCESS, GET_USER_DETAILS_SAVE_RES_FAIL,
+    GET_USER_DETAILS_RES_SUCCESS, GET_USER_DETAILS_RES_FAIL,
+    ITEM_SAVE_RES_SUCCESS, ITEM_SAVE_RES_FAIL
 } from '../actions/defaultAction';
 
 const initialObj = {
@@ -11,7 +14,10 @@ const initialObj = {
 const initialState = {
     getDefaultRes: initialObj,
     getLocationDetailsRes: initialObj,
-    setOrderDetailsRes: initialObj
+    setOrderDetailsRes: initialObj,
+    insertLoginUserSaveRes: initialObj,
+    getUserDetailsRes: initialObj,
+    insertItemSaveRes: initialObj
 }
 
 function defaultReducer(state = initialState, action) {
@@ -45,6 +51,54 @@ function defaultReducer(state = initialState, action) {
             return {
                 ...state,
                 setOrderDetailsRes: {
+                    data: payload?.data,
+                    statusCode: payload?.status
+                }
+            }
+        case GET_USER_DETAILS_SAVE_RES_SUCCESS:
+            return {
+                ...state,
+                insertLoginUserSaveRes: {
+                    data: payload.data,
+                    statusCode: payload.status
+                }
+            }
+        case GET_USER_DETAILS_SAVE_RES_FAIL:
+            return {
+                ...state,
+                insertLoginUserSaveRes: {
+                    data: payload?.data,
+                    statusCode: payload?.status
+                }
+            }
+        case GET_USER_DETAILS_RES_SUCCESS:
+            return {
+                ...state,
+                getUserDetailsRes: {
+                    data: payload.data,
+                    statusCode: payload.status
+                }
+            }
+        case GET_USER_DETAILS_RES_FAIL:
+            return {
+                ...state,
+                getUserDetailsRes: {
+                    data: payload?.data,
+                    statusCode: payload?.status
+                }
+            }
+        case ITEM_SAVE_RES_SUCCESS:
+            return {
+                ...state,
+                insertItemSaveRes: {
+                    data: payload.data,
+                    statusCode: payload.status
+                }
+            }
+        case ITEM_SAVE_RES_FAIL:
+            return {
+                ...state,
+                insertItemSaveRes: {
                     data: payload?.data,
                     statusCode: payload?.status
                 }
