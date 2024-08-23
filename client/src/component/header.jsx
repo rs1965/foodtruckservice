@@ -5,7 +5,7 @@ import { GiFoodTruck } from "react-icons/gi";
 import { useDispatch, useSelector } from 'react-redux'
 import SearchBar from '../common/searchbar';
 import { GoogleLoginProvider, FaceBookLoginProvider, LinkedInLogin } from '../common/loginTypes';
-import { insertLoginUserSave } from '../redux/actions/defaultAction';
+import { insertLoginUserSave, resetStatePart } from '../redux/actions/defaultAction';
 import { Link } from 'react-router-dom';
 import SpinnerComponent from '../common/spinner';
 function Header() {
@@ -20,33 +20,39 @@ function Header() {
     const dispatch = useDispatch();
     let { insertLoginUserSaveRes } = locationState;
     useEffect(() => {
+        checkExpiry()
+    }, []);
+    const checkExpiry = () => {
         // Retrieve token and expiration time from local storage (or wherever you store it)
         const tokenExp = localStorage.getItem('token_exp');
         if (tokenExp) {
-            const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
-            if (Number(currentTime) < Number(tokenExp)) {
-                setIsLoggedIn(true);
-            }
+            const currentTime = Math.floor(Date.now() / 1000);
+            setIsLoggedIn(Number(currentTime) < Number(tokenExp));
         } else {
             setIsLoggedIn(false);
         }
-    }, [insertLoginUserSaveRes, userDetails]);
+    }
     const clearuserDetails = () => {
         setUserDetails([])
         localStorage.removeItem('token_exp');
+        localStorage.removeItem('role');
         setIsChecked(false)
+        checkExpiry()
     }
     useEffect(() => {
         if (insertLoginUserSaveRes?.statusCode === 200) {
             setShowLoader(false);
             setMsg(insertLoginUserSaveRes?.data?.message)
             localStorage.setItem('token_exp', userDetails?.expiryDateTime * 1000);
+            localStorage.setItem('role', userDetails?.role);
+            checkExpiry()
             setShow(true)
         } else if (insertLoginUserSaveRes?.statusCode !== 200) {
             setShowLoader(false);
             setMsg(insertLoginUserSaveRes?.data?.message)
             setShow(true);
         }
+        dispatch(resetStatePart(insertLoginUserSaveRes))
     }, [insertLoginUserSaveRes])
     const handleClick = (id) => {
         setActiveItem(id);
@@ -107,7 +113,7 @@ function Header() {
                 {/* Sidebar */}
                 <div className="sidebar">
                     <ul>
-                        {userDetails.role === 'Admin' && isLoggedIn && <li className={activeItem === 'item' ? 'active' : ''} onClick={() => handleClick('item')}><Link to={'/addItems'}>Add Item</Link></li>}
+                        {localStorage.getItem('role') === 'Admin' && isLoggedIn && <li className={activeItem === 'item' ? 'active' : ''} onClick={() => handleClick('item')}><Link to={'/addItems'}>Add Item</Link></li>}
                         <li className={activeItem === 'home' ? 'active' : ''} onClick={() => handleClick('home')}><Link to={'/'}>Edit</Link></li>
                         <li className={activeItem === 'about' ? 'active' : ''} onClick={() => handleClick('about')}><Link to={'/'}>About</Link></li>
                     </ul>

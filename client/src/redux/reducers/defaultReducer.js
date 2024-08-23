@@ -3,7 +3,7 @@ import {
     GET_ORDER_DETAILS_SAVE_SUCCESS, GET_ORDER_DETAILS_SAVE_FAIL,
     GET_USER_DETAILS_SAVE_RES_SUCCESS, GET_USER_DETAILS_SAVE_RES_FAIL,
     GET_USER_DETAILS_RES_SUCCESS, GET_USER_DETAILS_RES_FAIL,
-    ITEM_SAVE_RES_SUCCESS, ITEM_SAVE_RES_FAIL
+    ITEM_SAVE_RES_SUCCESS, ITEM_SAVE_RES_FAIL, RESET_STATE_PART
 } from '../actions/defaultAction';
 
 const initialObj = {
@@ -103,6 +103,11 @@ function defaultReducer(state = initialState, action) {
                     statusCode: payload?.status
                 }
             }
+        case RESET_STATE_PART:
+            return {
+                ...state,
+                [payload]: initialObj
+            };
         default:
             return state;
     }
