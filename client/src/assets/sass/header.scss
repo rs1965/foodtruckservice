@@ -104,12 +104,15 @@
 }
 
 .main-content {
-    margin-left: 110px;
+    margin: 0px 110px;
+    display: flex;
+    flex-direction: row;
     // padding: 20px;
+    justify-content: space-between;
 }
 
 .tablecustom {
-    margin-left: 93px;
+    // margin-left: 93px;
     padding: 20px;
 }
 
@@ -182,4 +185,87 @@
     /* Adjust font size if needed */
     color: #000;
     /* Adjust color if needed */
+}
+
+.card-main {
+    border-radius: 2rem;
+    /* Fixed width for all cards */
+    width: 34rem;
+    /* Fixed height for all cards */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    // flex-wrap: wrap;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    padding: 2rem;
+    cursor: pointer;
+    /* Space between cards */
+}
+
+.card-main-containt {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.card-img-main {
+    width: 9rem;
+    border-radius: 40px;
+    height: 9rem;
+    align-items: center;
+}
+
+.card-body-main {
+    overflow: auto;
+    width: 9rem;
+    height: 9rem;
+}
+
+
+/* Container for applicant text */
+.card-applicant {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-bottom: inherit;
+    /* Ensure it takes up full width */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// /* Tooltip styling */
+.tooltip-inner {
+    max-width: none;
+    /* Ensure tooltip can be as wide as needed */
+    white-space: normal;
+    /* Allow wrapping in tooltip */
+}
+
+.pagination-alignment {
+    align-items: center;
+}
+
+.facilityStyle {
+    padding: 10px 0px;
+}
+
+.applicantStyle {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.addressStyle {
+    text-wrap: nowrap;
+    padding: 10px 0px;
+}
+
+.locationdescriptionStyle {
+    font-style: italic;
+}
+
+.cardDisplay {
+    display: flex;
+    flex-wrap: wrap;
 }
