@@ -5,7 +5,10 @@ import { getLocationDetails, getLocationMetaDetails, setOrderDetails } from '../
 import SpinnerComponent from '../common/spinner';
 import CustomTable from '../common/customTable';
 import CanvasView from '../common/canvas';
-import { ToastContainer, Toast } from 'react-bootstrap';
+import { ToastContainer, Toast, Col } from 'react-bootstrap';
+import GpayService from '../common/gpayService';
+import TruckCanvas from './truckCanvas';
+import PaginationCanvas from '../common/pagination';
 // import ImageToBlob from '../common/imageToBlob';
 function Home() {
     const [location, setLocation] = useState([])
@@ -166,10 +169,38 @@ function Home() {
         setShowLoader(true);
         dispatch(setOrderDetails(payload));
     }
+    //pagination and canvas related code
+    const [currentPage, setCurrentPage] = useState(1);
+    const cardsPerPage = 4;
+    const maxPaginationLinks = 6; // Limit the number of pagination links shown
+    const totalPages = Math.ceil(tableData?.length / cardsPerPage);
+
+    // Get the current cards for the page
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const currentCards = tableData?.slice(indexOfFirstCard, indexOfLastCard);
+
+    // Handle page change
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    // Handle card click
+    const handleCardClick = (card) => {
+        { card && setShowOffcanvas(true) }
+    };
+
+    // Logic to limit pagination buttons
+    const getPaginationRange = () => {
+        const startPage = Math.max(1, currentPage - Math.floor(maxPaginationLinks / 2));
+        const endPage = Math.min(totalPages, startPage + maxPaginationLinks - 1);
+
+        return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+    };
     return (
         <>
             {showLoader && <SpinnerComponent />}
-            <div className="main-content">
+            <div className="main-content col-md-8">
                 <SearchBar handleSearch={getLocationByText}
                     handleInputChange={handleChange} text={text}
                     placeholder={'City,State or Zipcode'}
@@ -178,12 +209,21 @@ function Home() {
                             (text && text?.split(',')[0]?.trim() === '') ? 'Please Enter City' :
                                 (text && text?.split(',')[1]?.trim() === '') ? 'Please Enter State' : ''}
                 />
+                <div className='search-container pagination-alignment'>
+                    <PaginationCanvas
+                        data={tableData}
+                        currentPage={currentPage}
+                        handlePageChange={handlePageChange}
+                        getPaginationRange={getPaginationRange}
+                        totalPages={totalPages} />
+                </div>
                 {/* <ImageToBlob /> */}
             </div>
+            {/* <GpayService /> */}
             <div className='tablecustom'>
-                {/* <TableCustom columns={columns} nodes={tableData} /> */}
-                <CustomTable columns={columns} tableData={tableData} styleTable={"table-bordered"}
-                    tableHeight="400px" handleRowClick={handleRowClick} />
+                {/* <CustomTable columns={columns} tableData={tableData} styleTable={"table-bordered"}
+                    tableHeight="400px" handleRowClick={handleRowClick} /> */}
+                <TruckCanvas handleCardClick={handleCardClick} currentCards={currentCards} />
                 {recdSelected &&
                     <>
                         <CanvasView view={showOffcanvas} data={recdSelected} items={items} setItems={setItems}
