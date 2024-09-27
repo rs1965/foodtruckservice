@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SearchBar from '../common/searchbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLocationDetails, getLocationMetaDetails, setOrderDetails } from '../redux/actions/defaultAction';
+import { getLocationDetails, getLocationMetaDetails, getTokenJWT, setOrderDetails } from '../redux/actions/defaultAction';
 import SpinnerComponent from '../common/spinner';
 import CustomTable from '../common/customTable';
 import CanvasView from '../common/canvas';
@@ -22,7 +22,7 @@ function Home() {
     const [showMsg, setMsg] = useState('');
 
     const locationState = useSelector((state) => state.defaultReducer);
-    let { getLocationDetailsRes, setOrderDetailsRes } = locationState;
+    let { getLocationDetailsRes, setOrderDetailsRes, getTokenJWTRes } = locationState;
     const initialItems = [
         { id: 1, price: 5, name: 'ice cream', quantity: 0 },
         { id: 2, price: 10, name: 'name of the iteam to be selected', quantity: 0 },
@@ -70,6 +70,11 @@ function Home() {
         }
         setOrderDetailsRes = {}
     }, [setOrderDetailsRes])
+    useEffect(()=>{
+        if (getTokenJWTRes?.statusCode === 200){
+            console.log(getTokenJWTRes?.data.data)   
+        }
+    },[getTokenJWTRes])
     function replaceRepeatingCommas(text) {
         const inputString = text;
         const firstCommaIndex = inputString.indexOf(",");
@@ -167,7 +172,9 @@ function Home() {
     }
     const handleSubmitRequest = (payload) => {
         setShowLoader(true);
-        dispatch(setOrderDetails(payload));
+        //dispatch(setOrderDetails(payload));
+        dispatch(getTokenJWT())
+
     }
     //pagination and canvas related code
     const [currentPage, setCurrentPage] = useState(1);

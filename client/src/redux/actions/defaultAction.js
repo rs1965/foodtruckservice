@@ -13,6 +13,8 @@ export const GET_USER_DETAILS_RES_FAIL = "GET_USER_DETAILS_RES_FAIL";
 export const ITEM_SAVE_RES_SUCCESS = "ITEM_SAVE_RES_SUCCESS";
 export const ITEM_SAVE_RES_FAIL = "ITEM_SAVE_RES_FAIL";
 export const RESET_STATE_PART = "RESET_STATE_PART";
+export const GET_TOKEN_RES_SUCCESS = "GET_TOKEN_RES_SUCCESS";
+export const GET_TOKEN_RES_FAIL = "GET_TOKEN_RES_FAIL";
 
 const CommonServices = Services
 
@@ -69,6 +71,17 @@ export const insertItemSave = (payload) => async (dispatch) => {
         dispatch({ type: ITEM_SAVE_RES_FAIL, payload: err.response });
     })
 }
+
+
+export const getTokenJWT = () => async (dispatch) => {
+
+    await CommonServices.getApi(`http://localhost:8080/generate-token`).then(function (res) {
+        dispatch({ type: GET_TOKEN_RES_SUCCESS, payload: res });
+    }).catch(err => {
+        dispatch({ type: GET_TOKEN_RES_FAIL, payload: err.response });
+    })
+}
+
 
 export const resetStatePart = (key) => ({
     type: RESET_STATE_PART,

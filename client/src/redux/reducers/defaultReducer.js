@@ -3,7 +3,8 @@ import {
     GET_ORDER_DETAILS_SAVE_SUCCESS, GET_ORDER_DETAILS_SAVE_FAIL,
     GET_USER_DETAILS_SAVE_RES_SUCCESS, GET_USER_DETAILS_SAVE_RES_FAIL,
     GET_USER_DETAILS_RES_SUCCESS, GET_USER_DETAILS_RES_FAIL,
-    ITEM_SAVE_RES_SUCCESS, ITEM_SAVE_RES_FAIL, RESET_STATE_PART
+    ITEM_SAVE_RES_SUCCESS, ITEM_SAVE_RES_FAIL, RESET_STATE_PART,
+    GET_TOKEN_RES_SUCCESS,GET_TOKEN_RES_FAIL
 } from '../actions/defaultAction';
 
 const initialObj = {
@@ -17,7 +18,8 @@ const initialState = {
     setOrderDetailsRes: initialObj,
     insertLoginUserSaveRes: initialObj,
     getUserDetailsRes: initialObj,
-    insertItemSaveRes: initialObj
+    insertItemSaveRes: initialObj,
+    getTokenJWTRes: initialObj
 }
 
 function defaultReducer(state = initialState, action) {
@@ -103,6 +105,22 @@ function defaultReducer(state = initialState, action) {
                     statusCode: payload?.status
                 }
             }
+            case GET_TOKEN_RES_SUCCESS:
+                return {
+                    ...state,
+                    getTokenJWTRes: {
+                        data: payload.data,
+                        statusCode: payload.status
+                    }
+                }
+            case GET_TOKEN_RES_FAIL:
+                return {
+                    ...state,
+                    getTokenJWTRes: {
+                        data: payload?.data,
+                        statusCode: payload?.status
+                    }
+                }
         case RESET_STATE_PART:
             return {
                 ...state,
