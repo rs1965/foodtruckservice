@@ -1,5 +1,7 @@
 package com.radient.ftsapp.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radient.ftsapp.model.OrderRequest;
 import com.radient.ftsapp.utils.ResponseObject;
 import jakarta.transaction.Transactional;
@@ -12,12 +14,15 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class DoorDashService {
 
-    private static final String DOORDASH_URL = "https://openapi.doordash.com/drive/v2/deliveries";
+    private ObjectMapper objectMapper;
+    private static final String DOORDASH_URL = "https://openapi.doordash.com/drive/v2/quotes";
             //"https://api.doordash.com/v1/orders";
-
+    public DoorDashService(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Transactional
-    public ResponseObject<Integer> createOrder(OrderRequest orderRequest, String API_KEY) {
+    public ResponseObject<Object> createOrder(OrderRequest orderRequest, String API_KEY) {
         try {
             RestTemplate restTemplate = new RestTemplate();
             // Set up headers for API Key
@@ -30,10 +35,12 @@ public class DoorDashService {
 
             // Send the request
             ResponseEntity<String> response = restTemplate.exchange(DOORDASH_URL, HttpMethod.POST, requestEntity, String.class);
-            System.out.println(response);
             // Assuming the response will contain the order ID or success indicator
+            System.out.println(response.getBody());
             if (response.getStatusCode().is2xxSuccessful()) {
-                return new ResponseObject<>(true, "Order Created Successfully", 1); // Replace `1` with actual order ID or a relevant integer value if available
+                JsonNode responseData = objectMapper.readTree(response.getBody());
+
+                return new ResponseObject<>(true, "Order Created Successfully", responseData); // Replace `1` with actual order ID or a relevant integer value if available
             } else {
                 return new ResponseObject<>(false, "Failed to create order: " + response.getStatusCode(), null);
             }

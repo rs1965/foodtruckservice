@@ -44,6 +44,17 @@ class Services {
             }
         })
     }
+    static postApiDoorDash(url, data,API_KEY) {
+        return axios.post(url, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Method': '*',
+                'Accepts-Version': '1',
+                'API_KEY': API_KEY
+            }
+        })
+    }
     static putApi(url, data) {
         return axios.put(url, data, {
             headers: {

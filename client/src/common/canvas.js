@@ -3,8 +3,8 @@ import { Button, Card, Offcanvas } from 'react-bootstrap';
 import QuantityField from './quantityField';
 import sample from '../assets/images/sample.jpg'
 function CanvasView(props) {
-    const { view, handleCloseOffcanvas, items, setItems } = props;
-    const [totalPrice, setTotalPrice] = useState(0);
+    const { view, handleCloseOffcanvas, items, setItems,setTotalPrice,totalPrice } = props;
+    // const [totalPrice, setTotalPrice] = useState(0);
     useEffect(() => {
         getTotalPrice()
     }, [items])

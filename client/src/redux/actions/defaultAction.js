@@ -15,6 +15,8 @@ export const ITEM_SAVE_RES_FAIL = "ITEM_SAVE_RES_FAIL";
 export const RESET_STATE_PART = "RESET_STATE_PART";
 export const GET_TOKEN_RES_SUCCESS = "GET_TOKEN_RES_SUCCESS";
 export const GET_TOKEN_RES_FAIL = "GET_TOKEN_RES_FAIL";
+export const GET_CREATE_QUOTE_RES_SUCCESS = "GET_CREATE_QUOTE_RES_SUCCESS";
+export const GET_CREATE_QUOTE_RES_FAIL = "GET_CREATE_QUOTE_RES_FAIL";
 
 const CommonServices = Services
 
@@ -79,6 +81,15 @@ export const getTokenJWT = () => async (dispatch) => {
         dispatch({ type: GET_TOKEN_RES_SUCCESS, payload: res });
     }).catch(err => {
         dispatch({ type: GET_TOKEN_RES_FAIL, payload: err.response });
+    })
+}
+
+export const getCreateQuote = (payload,API_KEY) => async (dispatch) => {
+
+    await CommonServices.postApiDoorDash(`http://localhost:8080/doorDash/orders`,payload,API_KEY).then(function (res) {
+        dispatch({ type: GET_CREATE_QUOTE_RES_SUCCESS, payload: res });
+    }).catch(err => {
+        dispatch({ type: GET_CREATE_QUOTE_RES_FAIL, payload: err.response });
     })
 }
 

@@ -1,6 +1,5 @@
 package com.radient.ftsapp.controller;
 
-import com.radient.ftsapp.model.OrderPayload;
 import com.radient.ftsapp.model.OrderRequest;
 import com.radient.ftsapp.service.DoorDashService;
 import com.radient.ftsapp.utils.ResponseObject;
@@ -18,12 +17,12 @@ public class DoorController {
     private DoorDashService doorDashService;
 
     @PostMapping("/doorDash/orders")
-    public ResponseEntity<ResponseObject<Integer>> placeOrder(@Valid @RequestBody OrderRequest orderPayload,
+    public ResponseEntity<ResponseObject<Object>> placeOrder(@Valid @RequestBody OrderRequest orderPayload,
                                                               @RequestHeader String API_KEY) {
 //        OrderRequest orderRequest = orderPayload.getOrderRequest();
         System.out.println(API_KEY);
 //        String API_KEY = orderPayload.getApiKey();
-        ResponseObject<Integer> responseObject = doorDashService.createOrder(orderPayload,API_KEY);
+        ResponseObject<Object> responseObject = doorDashService.createOrder(orderPayload,API_KEY);
         if (responseObject.isSuccess()) {
             return new ResponseEntity<>(responseObject, HttpStatus.OK);
         } else {
