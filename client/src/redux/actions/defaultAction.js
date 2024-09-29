@@ -86,7 +86,7 @@ export const getTokenJWT = () => async (dispatch) => {
 
 export const getCreateQuote = (payload,API_KEY) => async (dispatch) => {
 
-    await CommonServices.postApiDoorDash(`http://localhost:8080/doorDash/orders`,payload,API_KEY).then(function (res) {
+    await CommonServices.postApiDoorDash(`http://localhost:8080/doorDash/quoteOrder`,payload,API_KEY).then(function (res) {
         dispatch({ type: GET_CREATE_QUOTE_RES_SUCCESS, payload: res });
     }).catch(err => {
         dispatch({ type: GET_CREATE_QUOTE_RES_FAIL, payload: err.response });
