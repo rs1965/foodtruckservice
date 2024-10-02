@@ -6,7 +6,11 @@ import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png';
 import { FaFacebook, FaLinkedin } from 'react-icons/fa';
 
-const getExpiryDateTime = (dt) => {
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { getLinkedInDetails } from '../redux/actions/defaultAction';
+
+export const getExpiryDateTime = (dt) => {
     const expTime = dt * 1000; // seconds to milliseconds convert
     // localStorage.setItem('token_exp', expTime);
     return new Date(expTime)
@@ -100,21 +104,66 @@ const FaceBookLoginProvider = (props) => {
     );
 }
 
-function LinkedInLogin() {
-    const redirectUri = `${window.location.origin}/linkedin/callback`
-    const { linkedInLogin } = useLinkedIn({
-        clientId: '86tgjuy5776q1a',
-        redirectUri: redirectUri,
-        onSuccess: (code) => console.log(code),
-        onError: (error) => console.log(error),
-    });
+function LinkedInLogin(props) {
+    const { setUserDetails, isChecked } = props
+    const [user, setUser] = useState();
+    const dispatch = useDispatch();
+    const LINKEDIN_CLIENT_ID = '86tgjuy5776q1a';
+    const REDIRECT_URI = `${window.location.origin}/callback`;
+    const STATE = 'YOUR_RANDOM_STATE';
+    const SCOPE = 'email profile openid w_member_social';
+    const POPUP_WIDTH = 600;
+    const POPUP_HEIGHT = 700;
+    const handleLogin = () => {
+        const left = (window.innerWidth - POPUP_WIDTH) / 2;
+        const top = (window.innerHeight - POPUP_HEIGHT) / 2;
 
+        const popup = window.open(
+            `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${LINKEDIN_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=${STATE}&scope=${SCOPE}`,
+            'linkedin-login',
+            `width=${POPUP_WIDTH},height=${POPUP_HEIGHT},top=${top},left=${left}`
+        );
+
+        if (popup) {
+            const timer = setInterval(() => {
+                if (popup.closed) {
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+    };
+    const processToken = async (data) => {
+        try {
+            const result = dispatch(getLinkedInDetails(data));
+
+        } catch (error) {
+            console.error('Error fetching LinkedIn user data:', error);
+        }
+    }
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.origin !== window.location.origin) {
+                return; // Ignore messages from different origins
+            }
+
+            if (event.data.type === 'linkedin-auth') {
+                processToken(event?.data?.profile);
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+
+        return () => {
+            window.removeEventListener('message', handleMessage);
+        };
+    }, []);
     return (
         <FaLinkedin
-            onClick={linkedInLogin}
+            onClick={handleLogin}
             // src={FaLinkedin}
             className="custom-linkedin-icon"
         />
+        // <button onClick={handleLogin}>Login with LinkedIn</button>
     );
 }
 

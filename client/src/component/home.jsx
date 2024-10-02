@@ -73,7 +73,6 @@ function Home() {
     }, [setOrderDetailsRes])
     useEffect(() => {
         if (getTokenJWTRes?.statusCode === 200) {
-            console.log(getTokenJWTRes?.data.data)
             const randString = 'D-1xy2yx'.replace(/[xy]/g, function (c) {
                 const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
