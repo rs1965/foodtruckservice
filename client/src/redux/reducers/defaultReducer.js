@@ -4,8 +4,8 @@ import {
     GET_USER_DETAILS_SAVE_RES_SUCCESS, GET_USER_DETAILS_SAVE_RES_FAIL,
     GET_USER_DETAILS_RES_SUCCESS, GET_USER_DETAILS_RES_FAIL,
     ITEM_SAVE_RES_SUCCESS, ITEM_SAVE_RES_FAIL, RESET_STATE_PART,
-    GET_TOKEN_RES_SUCCESS,GET_TOKEN_RES_FAIL,GET_CREATE_QUOTE_RES_SUCCESS,
-    GET_CREATE_QUOTE_RES_FAIL
+    GET_TOKEN_RES_SUCCESS, GET_TOKEN_RES_FAIL, GET_CREATE_QUOTE_RES_SUCCESS,
+    GET_CREATE_QUOTE_RES_FAIL, GET_LINKEDIN_DETAILS_SUCCESS, GET_LINKEDIN_DETAILS_FAIL
 } from '../actions/defaultAction';
 
 const initialObj = {
@@ -21,7 +21,8 @@ const initialState = {
     getUserDetailsRes: initialObj,
     insertItemSaveRes: initialObj,
     getTokenJWTRes: initialObj,
-    getCreateQuoteRes: initialObj
+    getCreateQuoteRes: initialObj,
+    getLinkedInDetailsRes: initialObj
 }
 
 function defaultReducer(state = initialState, action) {
@@ -107,38 +108,54 @@ function defaultReducer(state = initialState, action) {
                     statusCode: payload?.status
                 }
             }
-            case GET_TOKEN_RES_SUCCESS:
-                return {
-                    ...state,
-                    getTokenJWTRes: {
-                        data: payload.data,
-                        statusCode: payload.status
-                    }
+        case GET_TOKEN_RES_SUCCESS:
+            return {
+                ...state,
+                getTokenJWTRes: {
+                    data: payload.data,
+                    statusCode: payload.status
                 }
-            case GET_TOKEN_RES_FAIL:
-                return {
-                    ...state,
-                    getTokenJWTRes: {
-                        data: payload?.data,
-                        statusCode: payload?.status
-                    }
+            }
+        case GET_TOKEN_RES_FAIL:
+            return {
+                ...state,
+                getTokenJWTRes: {
+                    data: payload?.data,
+                    statusCode: payload?.status
                 }
-                case GET_CREATE_QUOTE_RES_SUCCESS:
-                    return {
-                        ...state,
-                        getCreateQuoteRes: {
-                            data: payload.data,
-                            statusCode: payload.status
-                        }
-                    }
-                case GET_CREATE_QUOTE_RES_FAIL:
-                    return {
-                        ...state,
-                        getCreateQuoteRes: {
-                            data: payload?.data,
-                            statusCode: payload?.status
-                        }
-                    }
+            }
+        case GET_CREATE_QUOTE_RES_SUCCESS:
+            return {
+                ...state,
+                getCreateQuoteRes: {
+                    data: payload.data,
+                    statusCode: payload.status
+                }
+            }
+        case GET_CREATE_QUOTE_RES_FAIL:
+            return {
+                ...state,
+                getCreateQuoteRes: {
+                    data: payload?.data,
+                    statusCode: payload?.status
+                }
+            }
+        case GET_LINKEDIN_DETAILS_SUCCESS:
+            return {
+                ...state,
+                getLinkedInDetailsRes: {
+                    data: payload.data,
+                    statusCode: payload.status
+                }
+            }
+        case GET_LINKEDIN_DETAILS_FAIL:
+            return {
+                ...state,
+                getLinkedInDetailsRes: {
+                    data: payload?.data,
+                    statusCode: payload?.status
+                }
+            }
         case RESET_STATE_PART:
             return {
                 ...state,
