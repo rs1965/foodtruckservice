@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SearchBar from '../common/searchbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLocationDetails, getLocationMetaDetails, getTokenJWT, setOrderDetails } from '../redux/actions/defaultAction';
+import { getCreateQuote, getLocationDetails, getLocationMetaDetails, getTokenJWT, setOrderDetails } from '../redux/actions/defaultAction';
 import SpinnerComponent from '../common/spinner';
 import CustomTable from '../common/customTable';
 import CanvasView from '../common/canvas';
@@ -20,9 +20,10 @@ function Home() {
     const [showOffcanvas, setShowOffcanvas] = useState(false);
     const [show, setShow] = useState(false);
     const [showMsg, setMsg] = useState('');
+    const [totalPrice, setTotalPrice] = useState(0);
 
     const locationState = useSelector((state) => state.defaultReducer);
-    let { getLocationDetailsRes, setOrderDetailsRes, getTokenJWTRes } = locationState;
+    let { getLocationDetailsRes, setOrderDetailsRes, getTokenJWTRes, getCreateQuoteRes } = locationState;
     const initialItems = [
         { id: 1, price: 5, name: 'ice cream', quantity: 0 },
         { id: 2, price: 10, name: 'name of the iteam to be selected', quantity: 0 },
@@ -70,11 +71,32 @@ function Home() {
         }
         setOrderDetailsRes = {}
     }, [setOrderDetailsRes])
-    useEffect(()=>{
-        if (getTokenJWTRes?.statusCode === 200){
-            console.log(getTokenJWTRes?.data.data)   
+    useEffect(() => {
+        if (getTokenJWTRes?.statusCode === 200) {
+            const randString = 'D-1xy2yx'.replace(/[xy]/g, function (c) {
+                const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+            const payload = {
+                "external_delivery_id": randString,
+                "dropoff_address": "901 Market Street 6th Floor San Francisco, CA 94103",
+                "pickup_address": "1000 Market Street, San Francisco, CA 94102",
+                "dropoff_phone_number": "+16505555555",
+                "order_value": totalPrice,
+                "pickup_verification_metadata": {
+                    "verification_type": "SCAN_BARCODE",
+                    "verification_code": "12345",
+                    "verification_format": "CODE_39"
+                }
+            }
+            dispatch(getCreateQuote(payload, getTokenJWTRes?.data.data))
         }
-    },[getTokenJWTRes])
+    }, [getTokenJWTRes])
+    useEffect(() => {
+        if (getCreateQuoteRes?.statusCode === 200) {
+            console.log(getCreateQuoteRes?.data.data)
+        }
+    }, [getCreateQuoteRes])
     function replaceRepeatingCommas(text) {
         const inputString = text;
         const firstCommaIndex = inputString.indexOf(",");
@@ -172,7 +194,7 @@ function Home() {
     }
     const handleSubmitRequest = (payload) => {
         setShowLoader(true);
-        //dispatch(setOrderDetails(payload));
+        dispatch(setOrderDetails(payload));
         dispatch(getTokenJWT())
 
     }
@@ -234,7 +256,8 @@ function Home() {
                 {recdSelected &&
                     <>
                         <CanvasView view={showOffcanvas} data={recdSelected} items={items} setItems={setItems}
-                            handleCloseOffcanvas={handleCloseOffcanvas} handleSubmitRequest={handleSubmitRequest} />
+                            handleCloseOffcanvas={handleCloseOffcanvas} handleSubmitRequest={handleSubmitRequest}
+                            totalPrice={totalPrice} setTotalPrice={setTotalPrice} />
                     </>
                 }
             </div>

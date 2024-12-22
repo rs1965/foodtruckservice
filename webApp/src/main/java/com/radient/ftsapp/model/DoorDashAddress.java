@@ -9,12 +9,8 @@ import lombok.Setter;
 @Setter
 @Embeddable
 public class DoorDashAddress {
-    private String city;
-    private String state;
-    private String street;
-//    private String unit;
-    private String zip_code;
-//    private String fullAddress;
+    private String verification_type;
+    private String verification_code;
 
     public DoorDashAddress() {}
 }

@@ -18,7 +18,7 @@ function Header() {
     const [isChecked, setIsChecked] = useState(false); // Initialize state
     const locationState = useSelector((state) => state.defaultReducer);
     const dispatch = useDispatch();
-    let { insertLoginUserSaveRes } = locationState;
+    let { insertLoginUserSaveRes, getLinkedInDetailsRes } = locationState;
     useEffect(() => {
         checkExpiry()
     }, []);
@@ -54,6 +54,31 @@ function Header() {
         }
         dispatch(resetStatePart(insertLoginUserSaveRes))
     }, [insertLoginUserSaveRes])
+    useEffect(() => {
+        if (getLinkedInDetailsRes?.statusCode === 200 && getLinkedInDetailsRes?.data?.data) {
+            const getExpiryDateTimeLI = (expiresIn) => {
+                const currentTime = Math.floor(Date.now() / 1000); // current time in seconds
+                const expirationTime = currentTime + expiresIn; // expiration time in seconds
+
+                // Convert to human-readable format
+                const expirationDate = new Date(expirationTime * 1000); // convert to milliseconds
+                const date = expirationDate.toISOString().split('T')[0];
+                return new Date(date);
+            }
+            const payload = {
+                userId: getLinkedInDetailsRes?.data?.data?.sub,
+                type: "linkedin",
+                role: isChecked ? 'Admin' : 'Consumer',
+                emailId: getLinkedInDetailsRes?.data?.data?.email,
+                name: getLinkedInDetailsRes?.data?.data?.name,
+                expiryDateTime: getExpiryDateTimeLI(getLinkedInDetailsRes?.data?.data?.expires_in)
+            }
+            saveLoginDetails(payload)
+        } else if (getLinkedInDetailsRes?.statusCode !== 200) {
+            setMsg(getLinkedInDetailsRes?.data?.message)
+        }
+        dispatch(resetStatePart(getLinkedInDetailsRes))
+    }, [getLinkedInDetailsRes])
     const handleClick = (id) => {
         setActiveItem(id);
     }
@@ -97,9 +122,9 @@ function Header() {
                                     <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
                                         <FaceBookLoginProvider userDetails={userDetails} setUserDetails={saveLoginDetails} isChecked={isChecked} />
                                     </div>
-                                    {/* <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
-                                    <LinkedInLogin userDetails={userDetails} setUserDetails={saveLoginDetails} isChecked={isChecked} />
-                                </div> */}
+                                    <div className={`login-button facebook-login-button ${isLoggedIn ? 'hidden' : 'visible'}`}>
+                                        <LinkedInLogin userDetails={userDetails} setUserDetails={saveLoginDetails} isChecked={isChecked} />
+                                    </div>
                                 </>
                             )}
                             {isLoggedIn && (
