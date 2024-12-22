@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SMSService {
 
-    @Value("${TWILIO_ACCOUNT_SID}")
+    @Value("ACae5a803865dba1c1527f9ad65cb3b73c")
     String ACCOUNT_SID;
 
-    @Value("${TWILIO_AUTH_TOKEN}")
+    @Value("39f077966d5f9c895309becf8556591d")
     String AUTH_TOKEN;
 
-    @Value("${TWILIO_OUTGOING_SMS_NUMBER}")
+    @Value("+12564149614")
     String OUTGOING_SMS_NUMBER;
 
 
