@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class SMSSendRequest {
     private String destinationSMSNumber;
-    private String senderSMSNumber;
+    private String messageText;
 }
