@@ -1,0 +1,412 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  opacity: 0.5;
+  align-items: center;
+  background-color: grey;
+  z-index: 99;
+}
+
+/* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: relative;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.brand-title {
+  margin-left: 10px;
+}
+
+.ml-auto {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.user-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.login-button {
+  margin-left: 10px;
+}
+
+.login-button {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.user-name {
+  font-size: 16px;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 100px;
+  height: 100%;
+  background-color: #f4f4f4;
+  position: fixed;
+  padding: 20px 0;
+  overflow-y: auto;
+  box-shadow: 0 3px 6px 0 rgba(17, 82, 73, 0.86);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li:hover {
+  background-color: #c8dfdf;
+}
+
+.sidebar ul li a {
+  display: grid;
+  padding: 15px;
+  color: black;
+  text-decoration: none;
+}
+
+/* Active state for li */
+.sidebar ul li.active {
+  background-color: #c8dfdf;
+  /* Different color for the active item */
+}
+
+.main-content {
+  margin-left: 110px;
+}
+
+.tablecustom {
+  margin-left: 93px;
+  padding: 20px;
+}
+
+.search-container {
+  display: flex;
+  position: sticky;
+  width: 300px;
+  margin-top: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.search-button {
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+/* Table with borders */
+.table-bordered {
+  border: 1px solid #ddd;
+  /* Add a border around the table */
+}
+
+/* Add borders to table cells */
+.table-bordered .table {
+  border-collapse: collapse;
+  /* Ensure borders are not separated */
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #ddd;
+  /* Add borders to table cells */
+  /* Add padding to cells */
+}
+
+.table-bordered td {
+  z-index: 0 !important;
+}
+
+.table-bordered th {
+  background-color: #f2f2f2;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1;
+  /* Optional: add background color to headers */
+}
+
+/* CSS Styles for aligning pagination controls */
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  /* Aligns pagination to the right */
+}
+
+.react-bootstrap-table-pagination {
+  margin-bottom: 10px;
+}
+
+/* Ensure pagination is on the top */
+.bootstrap-table .pagination-top {
+  display: flex;
+  justify-content: flex-end;
+  /* Aligns pagination to the right */
+}
+
+.quantity-field {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-field-btn {
+  border-radius: 40%;
+  margin: 5%;
+}
+
+.offcanvas-bgc {
+  background-color: #c8dfdf;
+}
+
+.card-border {
+  margin: 0 0 5% 0;
+  border: 1px solid black;
+}
+
+.offcanvas-footer {
+  text-align: right;
+}
+
+.price-details {
+  border-top: 2px solid black;
+}
+
+.price-details-label {
+  margin: 5% 0 5% 0;
+}
+
+.form-group {
+  margin: 5px 190px;
+}
+
+.item-main {
+  border: 2px solid black;
+  margin-top: 8vw;
+}
+
+.item-Fields {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.required-asterisk {
+  color: red;
+  margin-left: 2px;
+}
+
+.customTextField {
+  padding: 10px;
+}
+
+.customTextField:focus {
+  box-shadow: 7px 6px 89px -15px rgba(12, 190, 201, 0.39);
+  /* Adjusted offset */
+  outline: none;
+  border-radius: 5px;
+}
+
+.textareawidth {
+  width: 40vw;
+}
+
+.itemButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+body {
+  background-color: #c8dfdf;
+}
+
+.vertical-line {
+  border: 1px solid black;
+  margin-left: 10px;
+  height: 30px;
+}
+
+.text-error-display {
+  color: red;
+  font-size: medium;
+  width: -moz-max-content;
+  width: max-content;
+}/*# sourceMappingURL=main.css.map */

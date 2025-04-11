@@ -1,0 +1,23 @@
+.search-container {
+  display: flex;
+  position: sticky;
+  width: 300px;
+  margin-top: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.search-button {
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}/*# sourceMappingURL=searchbar.css.map */

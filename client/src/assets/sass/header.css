@@ -1,0 +1,226 @@
+/* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: relative;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.brand-title {
+  margin-left: 10px;
+}
+
+.ml-auto {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.user-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.login-button {
+  margin-left: 10px;
+}
+
+.login-button {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.user-name {
+  font-size: 16px;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 100px;
+  height: 100%;
+  background-color: #f4f4f4;
+  position: absolute;
+  padding: 20px 0;
+  overflow-y: auto;
+  box-shadow: 0 3px 6px 0 rgba(17, 82, 73, 0.86);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li:hover {
+  background-color: #c8dfdf;
+}
+
+.sidebar ul li a {
+  display: grid;
+  padding: 15px;
+  color: black;
+  text-decoration: none;
+}
+
+/* Active state for li */
+.sidebar ul li.active {
+  background-color: #c8dfdf;
+  /* Different color for the active item */
+}
+
+.main-content {
+  margin: 0px 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tablecustom {
+  padding: 20px;
+}
+
+.custom-facebook-icon {
+  background-color: white;
+  /* Facebook blue */
+  border-radius: 18%;
+  /* Make it a circle like the Google icon */
+  padding: 3px;
+  /* Adjust the padding to match the Google icon */
+  color: #4267B2;
+  /* Icon color */
+  font-size: 27px;
+  /* Adjust size as needed */
+}
+
+.custom-linkedin-icon {
+  background-color: white;
+  /* LinkedIn blue */
+  border-radius: 18%;
+  /* Make it circular like the Google icon */
+  padding: 4px;
+  /* Adjust the padding to match the Google icon */
+  color: #0077B5;
+  /* Icon color */
+  font-size: 27px;
+  /* Adjust size as needed */
+  cursor: pointer;
+  /* Maintain the pointer cursor */
+  display: inline-flex;
+  border: solid 2px;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+}
+
+.switch-label {
+  font-size: 1rem;
+  /* Adjust font size if needed */
+  color: #000;
+  /* Adjust color if needed */
+}
+
+.card-main {
+  border-radius: 2rem;
+  /* Fixed width for all cards */
+  width: 34rem;
+  /* Fixed height for all cards */
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  cursor: pointer;
+  /* Space between cards */
+}
+
+.card-main-containt {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-img-main {
+  width: 9rem;
+  border-radius: 40px;
+  height: 9rem;
+  align-items: center;
+}
+
+.card-body-main {
+  overflow: auto;
+  width: 9rem;
+  height: 9rem;
+}
+
+/* Container for applicant text */
+.card-applicant {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding-bottom: inherit;
+  /* Ensure it takes up full width */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tooltip-inner {
+  max-width: none;
+  /* Ensure tooltip can be as wide as needed */
+  white-space: normal;
+  /* Allow wrapping in tooltip */
+}
+
+.pagination-alignment {
+  align-items: center;
+}
+
+.facilityStyle {
+  padding: 10px 0px;
+}
+
+.applicantStyle {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.addressStyle {
+  text-wrap: nowrap;
+  padding: 10px 0px;
+}
+
+.locationdescriptionStyle {
+  font-style: italic;
+}
+
+.cardDisplay {
+  display: flex;
+  flex-wrap: wrap;
+}/*# sourceMappingURL=header.css.map */

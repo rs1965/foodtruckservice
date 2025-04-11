@@ -1,0 +1,25 @@
+@import 'variables.scss';
+// all other scss file import
+@import 'reset.scss';
+@import 'spinner.scss';
+@import 'header.scss';
+@import 'searchbar.scss';
+@import 'customTable.scss';
+@import 'quantityField.scss';
+@import 'addItems.scss';
+
+body {
+    background-color: $bg_container_color;
+}
+
+.vertical-line {
+    border: 1px solid black;
+    margin-left: 10px;
+    height: 30px;
+}
+
+.text-error-display {
+    color: red;
+    font-size: medium;
+    width: max-content;
+}

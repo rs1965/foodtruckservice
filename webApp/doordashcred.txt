@@ -1,0 +1,5 @@
+{
+  "developer_id": "8de1a14f-3030-43e8-b5e4-085e5bd755e6",
+  "key_id": "2dcd171e-3671-4b24-b75f-3dbacf021f15",
+  "signing_secret": "3ZuwOzWv3uMw6A7bI7d2a1uYh-ZYB7UeElgOAxLC0CU"
+}

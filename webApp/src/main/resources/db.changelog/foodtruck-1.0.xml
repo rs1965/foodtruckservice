@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <!-- ChangeSet to create the Orders table -->
+    <changeSet id="1" author="teja">
+        <sql>
+            CREATE TABLE IF NOT EXISTS Orders (
+                id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                foodTruckId VARCHAR(40) NOT NULL,
+                orderId VARCHAR(40) NOT NULL UNIQUE,
+                customerId VARCHAR(40) NOT NULL,
+                orderDate DATETIME NOT NULL,
+                totalPrice DECIMAL(10,2) NOT NULL
+                );
+        </sql>
+    </changeSet>
+    <!-- ChangeSet to create the OrderItems table -->
+    <changeSet id="2" author="teja">
+        <sql>
+            CREATE TABLE IF NOT EXISTS OrderItems (
+                id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                itemId VARCHAR(40) NOT NULL,
+                orderId VARCHAR(40) NOT NULL,
+                qty INT NOT NULL,
+                itemPrice DECIMAL(10,2) NOT NULL,
+                CONSTRAINT fk_order_items_orders FOREIGN KEY (orderId) REFERENCES Orders(orderId)
+                );
+        </sql>
+    </changeSet>
+    <!-- ChangeSet to add a LONGTEXT field to OrderItems table -->
+    <changeSet id="3" author="teja">
+        <sql>
+            ALTER TABLE OrderItems ADD itemImg LONGTEXT;
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="teja">
+        <sql>
+            CREATE TABLE IF NOT EXISTS Users (
+            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+            type VARCHAR(20) NOT NULL,
+            role VARCHAR(20) NOT NULL,
+            userId VARCHAR(50) NOT NULL UNIQUE,
+            token VARCHAR(255) NOT NULL,
+            expiryDateTime DATETIME NOT NULL
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="5" author="teja">
+        <sql>
+            ALTER table Users drop column token
+        </sql>
+    </changeSet>
+
+    <changeSet id="6" author="teja">
+        <sql>
+            ALTER TABLE Users ADD emailId varchar(50),ADD name varchar(50);
+        </sql>
+    </changeSet>
+    <changeSet id="7" author="teja">
+        <sql>
+            ALTER TABLE Users ADD timeStamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+        </sql>
+    </changeSet>
+    <changeSet id="8" author="teja">
+        <sql>
+            CREATE TABLE IF NOT EXISTS foodItems (
+                itemId BIGINT AUTO_INCREMENT PRIMARY KEY,
+                foodTruckId VARCHAR(50) NOT NULL,
+                itemPrice DOUBLE NOT NULL,
+                itemName VARCHAR(50) NOT NULL,
+                itemDescription VARCHAR(250) NOT NULL,
+                itemImages LONGTEXT NOT NULL
+                );
+        </sql>
+    </changeSet>
+</databaseChangeLog>
