@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -83,5 +85,22 @@ public class FoodTruckController {
         double EARTH_RADIUS_MILES = 3958.8;
         return EARTH_RADIUS_MILES * c;
     }
-
-}
+    /**
+     * @param address
+     * @param mock
+     * @return
+     */
+    @GetMapping("/closestFoodTrucks")
+    public ResponseEntity<?> getClosestFoodTrucks(
+            @RequestParam String address,
+            @RequestParam(defaultValue = "false") boolean mock) {
+        try {
+            List<Map<String, Object>> results = foodTruckService.findNearbyFoodTrucks(address, mock);
+            return ResponseEntity.ok(results);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error fetching food trucks: " + e.getMessage());
+        }
+    }
+    }
+// END @CrossOrigin(origins = "http://localhost:3000")
+// END @RestController
