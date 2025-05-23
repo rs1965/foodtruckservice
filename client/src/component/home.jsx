@@ -123,10 +123,10 @@ function Home() {
         if (text === '') {
             dispatch(getLocationDetails())
         } else if (text !== "") {
-            if (['san francisco', 'sanfrancisco', 'san-francisco'].includes(text.split(',')[1].toLowerCase())) {
+            if (['san francisco', 'sanfrancisco', 'san-francisco'].includes(text?.split(',')[1]?.toLowerCase())) {
                 dispatch(getLocationMetaDetails('sf'))
             }
-            if (['new york', 'newyork', 'new-york'].includes(text.split(',')[1].toLowerCase())) {
+            if (['new york', 'newyork', 'new-york'].includes(text?.split(',')[1]?.toLowerCase())) {
                 dispatch(getLocationMetaDetails('ny'))
             }
         }
