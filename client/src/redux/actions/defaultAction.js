@@ -40,6 +40,15 @@ export const getLocationMetaDetails = (city, status) => async (dispatch) => {
     })
 }
 
+export const getLocationDetailsByZipCode = (zipCode) => async (dispatch) => {
+    // This is for future implementation when backend supports zip code search
+    await CommonServices.getApi(`http://localhost:8080/getFoodTrucksByZip?zipCode=${zipCode}&status=false`).then(function (res) {
+        dispatch({ type: GET_LOCATION_DETAILS_SUCCESS, payload: res });
+    }).catch(err => {
+        dispatch({ type: GET_LOCATION_DETAILS_FAIL, payload: err.response });
+    })
+}
+
 export const setOrderDetails = (payload) => async (dispatch) => {
 
     await CommonServices.postApi(`http://localhost:8080/api/orders/insertOrder`, payload).then(function (res) {

@@ -1,1 +1,27 @@
-$bg_container_color: #c8dfdf
+// Color Variables
+$primary_color: #ff6b35;
+$secondary_color: #f7931e;
+$accent_color: #004643;
+$light_bg: #f9f9f9;
+$dark_bg: #2c3e50;
+$text_primary: #333333;
+$text_secondary: #666666;
+$white: #ffffff;
+$success_color: #27ae60;
+$error_color: #e74c3c;
+$warning_color: #f39c12;
+
+// Background gradients
+$bg_container_color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$card_gradient: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+$header_gradient: linear-gradient(90deg, $primary_color 0%, $secondary_color 100%);
+
+// Shadows
+$box_shadow_light: 0 2px 10px rgba(0, 0, 0, 0.1);
+$box_shadow_medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+$box_shadow_heavy: 0 8px 30px rgba(0, 0, 0, 0.2);
+
+// Border radius
+$border_radius_sm: 8px;
+$border_radius_md: 12px;
+$border_radius_lg: 16px;

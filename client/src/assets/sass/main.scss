@@ -9,17 +9,376 @@
 @import 'addItems.scss';
 
 body {
-    background-color: $bg_container_color;
+    background: $bg_container_color;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: $text_primary;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main-content-wrapper {
+    flex: 1;
+    margin-top: 70px;
+    height: calc(100vh - 70px);
+    overflow: hidden;
+    position: relative;
 }
 
 .vertical-line {
-    border: 1px solid black;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     margin-left: 10px;
     height: 30px;
 }
 
 .text-error-display {
-    color: red;
-    font-size: medium;
+    color: $error_color;
+    font-size: 0.875rem;
+    font-weight: 500;
     width: max-content;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+}
+
+// Global container styling
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: $border_radius_lg;
+    box-shadow: $box_shadow_medium;
+    margin: 20px auto;
+    padding: 30px;
+}
+
+// Enhanced button styles
+.btn {
+    border-radius: $border_radius_sm;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: $box_shadow_light;
+    border: none;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $box_shadow_medium;
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, $primary_color, $secondary_color);
+    border: none;
+    
+    &:hover {
+        background: linear-gradient(45deg, darken($primary_color, 10%), darken($secondary_color, 10%));
+    }
+}
+
+.btn-success {
+    background: linear-gradient(45deg, $success_color, lighten($success_color, 10%));
+    border: none;
+}
+
+// Card enhancements
+.card {
+    border: none;
+    border-radius: $border_radius_md;
+    box-shadow: $box_shadow_light;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: $card_gradient;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: $box_shadow_heavy;
+    }
+}
+
+// Animation classes
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+// Responsive typography
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: $text_primary;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: 3rem;
+    background: linear-gradient(45deg, $primary_color, $secondary_color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .container {
+        margin: 5px;
+        padding: 15px;
+    }
+    
+    .main-content-wrapper {
+        margin-top: 60px;
+        height: calc(100vh - 60px);
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
+        padding: 10px !important;
+        height: 100% !important;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        
+        &.open {
+            transform: translateX(0);
+        }
+    }
+    
+    .hero-section {
+        padding: 15px 15px 10px !important;
+        margin-bottom: 10px !important;
+        
+        .hero-title {
+            font-size: 1.5rem !important;
+            margin-bottom: 0.3rem !important;
+        }
+        
+        .hero-subtitle {
+            font-size: 0.9rem !important;
+            margin-bottom: 0.8rem !important;
+        }
+    }
+    
+    .search-section {
+        margin-bottom: 10px !important;
+    }
+    
+    .pagination-container {
+        margin-bottom: 10px !important;
+    }
+    
+    .tablecustom {
+        padding: 15px !important;
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+// New layout styles
+.search-section {
+    margin-bottom: 15px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 3;
+}
+
+.results-section {
+    animation: fadeInUp 0.6s ease-out;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255, 255, 255, 0.9);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    margin: 20px;
+    
+    h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.95);
+    }
+    
+    p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+// Main Content Layout
+.main-content {
+    padding: 20px;
+    padding-top: 0; // Remove top padding since we have hero section
+    min-height: calc(100vh - 140px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    
+    @media (max-width: 768px) {
+        padding: 10px;
+        padding-top: 0;
+        min-height: calc(100vh - 120px);
+    }
+}
+
+// Hero Section
+.hero-section {
+    text-align: center;
+    padding: 40px 20px 30px;
+    background: linear-gradient(135deg, 
+        rgba(99, 102, 241, 0.15) 0%, 
+        rgba(168, 85, 247, 0.15) 50%, 
+        rgba(236, 72, 153, 0.15) 100%);
+    border-radius: 24px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    
+    // Add subtle animation
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, 
+            transparent 30%, 
+            rgba(255, 255, 255, 0.05) 50%, 
+            transparent 70%);
+        animation: shimmer 3s infinite;
+        pointer-events: none;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, 
+            #ff6b35 0%, 
+            #f7931e 25%, 
+            #6366f1 50%, 
+            #a855f7 75%, 
+            #ec4899 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+        animation: fadeInUp 0.8s ease-out;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+        position: relative;
+        z-index: 1;
+        
+        @media (max-width: 768px) {
+            font-size: 2rem;
+            letter-spacing: -0.3px;
+        }
+        
+        @media (max-width: 480px) {
+            font-size: 1.6rem;
+            letter-spacing: -0.2px;
+        }
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+        font-weight: 500;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+        
+        @media (max-width: 768px) {
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 480px) {
+            font-size: 0.9rem;
+        }
+    }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
