@@ -7,15 +7,17 @@ import Additems from './component/additems';
 import LinkedInCallback from './config/LinkedInCallback';
 function App() {
   return (
-    <>
+    <div className="app-container">
       <Header />
-
-      <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route exact path='/addItems' element={<Additems />} />
-        <Route exact path='/callback' element={<LinkedInCallback />} />
-      </Routes>
-    </>
+      
+      <div className="main-content-wrapper">
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route exact path='/addItems' element={<Additems />} />
+          <Route exact path='/callback' element={<LinkedInCallback />} />
+        </Routes>
+      </div>
+    </div>
   );
 }
 

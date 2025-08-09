@@ -36,6 +36,10 @@ function Home() {
     useEffect(() => {
         setShow(false);
         setMsg('')
+        
+        // Load default content immediately to show something
+        dispatch(getLocationDetails());
+        
         if (navigator.geolocation && location.length === 0) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -229,47 +233,82 @@ function Home() {
     return (
         <>
             {showLoader && <SpinnerComponent />}
-            <div className="main-content col-md-8">
-                <SearchBar handleSearch={getLocationByText}
-                    handleInputChange={handleChange} text={text}
+            
+            <div className="main-content">
+                {/* Hero Section */}
+                <div className="hero-section">
+                    <h1 className="hero-title">🚚 Find Amazing Food Trucks</h1>
+                    <p className="hero-subtitle">Discover delicious local food trucks in your area</p>
+                </div>
+
+                {/* Search Section */}
+                <div className="search-section">
+                    <SearchBar handleSearch={getLocationByText}
+                        handleInputChange={handleChange} text={text}
                     placeholder={'City,State or Zipcode'}
                     errorMsg={text && !isNaN(text.charAt(0)) ? '' :
                         (text && !text?.includes(',')) ? 'Please Enter City,State or Zipcode' :
                             (text && text?.split(',')[0]?.trim() === '') ? 'Please Enter City' :
                                 (text && text?.split(',')[1]?.trim() === '') ? 'Please Enter State' : ''}
-                />
-                <div className='search-container pagination-alignment'>
-                    <PaginationCanvas
-                        data={tableData}
-                        currentPage={currentPage}
-                        handlePageChange={handlePageChange}
-                        getPaginationRange={getPaginationRange}
-                        totalPages={totalPages} />
+                    />
                 </div>
-                {/* <ImageToBlob /> */}
+
+                {/* Results Section */}
+                {tableData && tableData.length > 0 && (
+                    <div className='results-section'>
+                        <div className='pagination-container'>
+                            <PaginationCanvas
+                                data={tableData}
+                                currentPage={currentPage}
+                                handlePageChange={handlePageChange}
+                                getPaginationRange={getPaginationRange}
+                                totalPages={totalPages} 
+                            />
+                        </div>
+                        
+                        <div className='tablecustom'>
+                            <TruckCanvas handleCardClick={handleCardClick} currentCards={currentCards} />
+                        </div>
+                    </div>
+                )}
+
+                {/* Empty State */}
+                {!showLoader && (!tableData || tableData.length === 0) && (
+                    <div className="empty-state">
+                        <h3>🔍 Start Your Food Adventure</h3>
+                        <p>Enter a city and state above to discover amazing food trucks near you!</p>
+                        <p style={{fontSize: '0.9rem', opacity: 0.7, marginTop: '20px'}}>
+                            Try searching for: "San Francisco, CA" or "New York, NY" or use zip codes like "94102"
+                        </p>
+                    </div>
+                )}
             </div>
-            {/* <GpayService /> */}
-            <div className='tablecustom'>
-                {/* <CustomTable columns={columns} tableData={tableData} styleTable={"table-bordered"}
-                    tableHeight="400px" handleRowClick={handleRowClick} /> */}
-                <TruckCanvas handleCardClick={handleCardClick} currentCards={currentCards} />
-                {recdSelected &&
-                    <>
-                        <CanvasView view={showOffcanvas} data={recdSelected} items={items} setItems={setItems}
-                            handleCloseOffcanvas={handleCloseOffcanvas} handleSubmitRequest={handleSubmitRequest}
-                            totalPrice={totalPrice} setTotalPrice={setTotalPrice} />
-                    </>
-                }
-            </div>
-            {show && showMsg && <ToastContainer position="top-end" className="p-3">
-                <Toast onClose={() => setShow(false)} show={show} delay={2500} autohide>
-                    <Toast.Header>
-                        <strong className="me-auto">Message</strong>
-                        {/* <small>Just now</small> */}
-                    </Toast.Header>
-                    <Toast.Body>{showMsg}</Toast.Body>
-                </Toast>
-            </ToastContainer>}
+
+            {/* Order Canvas */}
+            {recdSelected &&
+                <CanvasView 
+                    view={showOffcanvas} 
+                    data={recdSelected} 
+                    items={items} 
+                    setItems={setItems}
+                    handleCloseOffcanvas={handleCloseOffcanvas} 
+                    handleSubmitRequest={handleSubmitRequest}
+                    totalPrice={totalPrice} 
+                    setTotalPrice={setTotalPrice} 
+                />
+            }
+
+            {/* Toast Messages */}
+            {show && showMsg && (
+                <ToastContainer position="top-end" className="p-3">
+                    <Toast onClose={() => setShow(false)} show={show} delay={2500} autohide>
+                        <Toast.Header>
+                            <strong className="me-auto">Message</strong>
+                        </Toast.Header>
+                        <Toast.Body>{showMsg}</Toast.Body>
+                    </Toast>
+                </ToastContainer>
+            )}
         </>
     )
 }
